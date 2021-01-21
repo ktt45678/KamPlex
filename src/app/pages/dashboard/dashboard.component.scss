@@ -1,0 +1,41 @@
+.carousel-item {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 85vh;
+}
+
+#dashboard-slider {
+  .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.carousel {
+  .carousel-control-prev, .carousel-control-next {
+    width: 5%;
+  }
+  .carousel-inner {
+    .carousel-item {
+      .row {
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+    }
+  }
+}
+
+.btn__play {
+  background-color: #FFFFFF;
+  color: #000000;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.btn__details {
+  background-color: rgba(109,109,110,0.4);
+  color: #FFFFFF;
+  font-size: 22px;
+  font-weight: bold;
+}
