@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body {
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+  font-weight: 300;
   background-color: #121212;
 }
 
@@ -11,7 +13,7 @@ a {
   text-decoration: none !important;
 }
 
-.btn {
+.btn, input {
   box-shadow: none !important;
 }
 
@@ -21,6 +23,18 @@ a {
 
 .pr-2r {
   padding-right: 2rem;
+}
+
+.mt-4r {
+  margin-top: 4rem;
+}
+
+.mt-10px {
+  margin-top: 10px;
+}
+
+.ml-5px {
+  margin-left: 5px;
 }
 
 .ml-12px {
