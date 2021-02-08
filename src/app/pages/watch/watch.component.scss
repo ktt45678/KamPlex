@@ -1,0 +1,8 @@
+:host ::ng-deep {
+  .plyr audio, .plyr iframe, .plyr video {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    margin: auto;
+  }
+}

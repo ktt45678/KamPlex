@@ -5,6 +5,10 @@ body {
   background-color: #121212;
 }
 
+*[ng-reflect-router-link]:focus {
+  outline: none;
+}
+
 h1, h2, h3, h4, h5, h6, p, span {
   color: white !important;
 }
@@ -15,6 +19,10 @@ a {
 
 .btn, input {
   box-shadow: none !important;
+}
+
+.br-1_5px {
+  border-radius: 1.5px;
 }
 
 .pl-2r {
@@ -29,6 +37,14 @@ a {
   margin-top: 4rem;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
 .mt-10px {
   margin-top: 10px;
 }
@@ -37,6 +53,6 @@ a {
   margin-left: 5px;
 }
 
-.ml-12px {
-  margin-left: 12px;
+.ml-10px {
+  margin-left: 10px;
 }
