@@ -1,4 +1,7 @@
-<section id="home">
+<div class="spinner__center" *ngIf="!movieList">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<section id="home" *ngIf="movieList">
   <div class="container-fluid">
     <div class="featured__top">
       <ng-container *ngIf="featuredShow">
@@ -35,7 +38,7 @@
           <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
             <div class="movie__item">
               <div class="movie__thumb h-100">
-                <img class="br-1_5px w-100 h-100" [routerLink]="'/details/' + result._id" [lazyLoad]="(result?.posterPath || '')" [defaultImage]="(result?.posterPath ? result?.posterPath! + '&w=48&h=48' : '')" [alt]="(result?.title || 'Movie poster')">
+                <img class="br-2px w-100 h-100" [routerLink]="'/details/' + result._id" [lazyLoad]="(result?.posterPath || '')" [defaultImage]="(result?.posterPath ? result?.posterPath! + '&w=48&h=48' : '')" [alt]="(result?.title || 'Movie poster')">
               </div>
               <div class="movie__content">
                 <div class="movie__info d-flex">

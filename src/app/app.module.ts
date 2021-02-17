@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 import { HeaderModule } from './shared/header/header.module';
@@ -30,6 +31,7 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
     HttpClientModule,
     ButtonModule,
     BadgeModule,
+    ProgressSpinnerModule,
     LazyLoadImageModule,
     HeaderModule,
     FooterModule,

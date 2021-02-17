@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
-import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
@@ -20,7 +19,6 @@ import { DetailsComponent } from './details.component';
     DetailsRoutingModule,
     ButtonModule,
     BadgeModule,
-    CardModule,
     ProgressSpinnerModule,
     LazyLoadImageModule,
     JoinModule

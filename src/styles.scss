@@ -5,7 +5,7 @@ body {
   background-color: #121212;
 }
 
-*[ng-reflect-router-link]:focus {
+img:focus, a:focus {
   outline: none;
 }
 
@@ -21,8 +21,8 @@ a {
   box-shadow: none !important;
 }
 
-.br-1_5px {
-  border-radius: 1.5px;
+.br-2px {
+  border-radius: 2px;
 }
 
 .pl-2r {

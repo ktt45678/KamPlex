@@ -30,13 +30,14 @@
   </div>
   <div class="container">
     <div class="details__credits">
-      <h3 class="fw-bold">Credits</h3>
+      <h3 class="fw-bold">Cast & Crew</h3>
       <div class="row">
         <ng-container *ngFor="let credit of media.credits">
-          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
-            <div class="credit__item">
+          <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4 col-4">
+            <div class="credit__card">
               <div class="credit__image">
-                <img class="br-1_5px w-100 h-100" [lazyLoad]="(credit?.profilePath || placeholderAvatar)" [defaultImage]="(credit?.profilePath ? credit?.profilePath + '&w=48&h=48' : '')" [alt]="(credit?.name || 'Profile image')">
+                <img *ngIf="credit.profilePath" class="br-2px w-100 h-100" [lazyLoad]="(credit.profilePath)" [defaultImage]="(credit.profilePath + '&w=48&h=48')" [alt]="(credit?.name || 'Profile image')">
+                <img *ngIf="!credit.profilePath" class="br-2px w-100 h-100" lazyLoad="assets/img/credit-avatar-lg.png" defaultImage="assets/img/credit-avatar-sm.png" alt="Profile image">
               </div>
               <div class="credit__content">
                 <p class="name m-0">{{credit.name}}</p>

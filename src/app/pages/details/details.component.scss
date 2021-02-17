@@ -45,8 +45,7 @@
 
 .details__credits {
   margin: 2.5rem auto;
-  .credit__item {
-    height: 71.5%;
+  .credit__card {
     margin: 1.5rem auto;
     .credit__thumb {
       img {
@@ -55,12 +54,12 @@
     }
     .credit__content {
       .name {
-        font-size: 16px;
+        font-size: 14px;
         font-family: 'Source Sans Pro', Arial, sans-serif;
         font-weight: 600;
       }
       .character, .job {
-        font-size: 14px;
+        font-size: 12px;
       }
       .department {
         color: #ffffff;
