@@ -13,18 +13,17 @@ const routes: Routes = [
       {
         path: '',
         component: HomeComponent
+      },
+      {
+        path: 'details/:id',
+        loadChildren: () => import('./pages/details/details.module').then(m => m.DetailsModule)
       }
     ]
   },
   {
-    path: '',
+    path: 'content',
     component: ContentLayoutComponent,
-    children: [
-      {
-        path: 'details',
-        loadChildren: () => import('./pages/media-details/media-details.module').then(m => m.MediaDetailsModule)
-      }
-    ]
+    children: []
   },
   {
     path: 'watch/:id',

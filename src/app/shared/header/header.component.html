@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" [class.bg-dark]="!isDynamicNavbar">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" routerLink="#">
         <img src="assets/img/logo-text.png" alt="">
       </a>
       <button class="navbar-toggler" (click)="onExpandMenu()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,13 +10,13 @@
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" routerLink="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">TV Shows</a>
+            <a class="nav-link" routerLink="#">TV Shows</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Movies</a>
+            <a class="nav-link" routerLink="#">Movies</a>
           </li>
         </ul>
         <div class="input__search d-flex">

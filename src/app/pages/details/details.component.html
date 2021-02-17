@@ -1,0 +1,52 @@
+<div class="spinner__center" *ngIf="!media">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<section id="details" *ngIf="media">
+  <div class="container-fluid">
+    <div class="details__top">
+      <div class="details__top--bg" [lazyLoad]="(media.backdropPath || '')" [defaultImage]="(media.backdropPath ? media.backdropPath + '&w=64&h=64' : '')"></div>
+      <div class="row align-items-center h-100">
+        <div class="col-xl-7 col-lg-12 col-md-12">
+          <h1>{{media?.title || ''}}</h1>
+          <div class="details__top--badges d-flex align-items-center">
+            <ng-container *ngIf="media?.movie">
+              <p-badge [value]="(media?.movie?.releaseDate | date: 'yyyy') || 'Unknown year'" class="badge__year"></p-badge>
+              <p-badge [value]="(media?.movie?.runtime || 0) + ' min'" class="badge__duration ml-5px"></p-badge>
+            </ng-container>
+            <ng-container *ngIf="media?.tvShow">
+              <p-badge [value]="(media?.tvShow?.firstAirDate | date: 'yyyy') || 'Unknown year'" class="badge__year"></p-badge>
+              <p-badge [value]="(media?.tvShow?.seasonCount || 0) + ((media?.tvShow?.seasonCount || 0) > 1 ? ' seasons' : ' season')" class="badge__duration ml-5px"></p-badge>
+            </ng-container>
+          </div>
+          <p class="details__top--genres mt-10px">{{media.genres | join: ', '}}</p>
+          <p class="details__top--overview mt-10px">{{media?.overview || ''}}</p>
+          <div class="details__top--actions">
+            <button [routerLink]="'/watch/' + media._id" pButton icon="pi pi-play" iconPos="left" label="Play" class="btn__play p-button-rounded pl-2r pr-2r"></button>
+            <button routerLink="#" pButton icon="pi pi-plus" label="Playlist" class="btn__details p-button-rounded pl-2r pr-2r ml-10px"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="details__credits">
+      <h3 class="fw-bold">Credits</h3>
+      <div class="row">
+        <ng-container *ngFor="let credit of media.credits">
+          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
+            <div class="credit__item">
+              <div class="credit__image">
+                <img class="br-1_5px w-100 h-100" [lazyLoad]="(credit?.profilePath || placeholderAvatar)" [defaultImage]="(credit?.profilePath ? credit?.profilePath + '&w=48&h=48' : '')" [alt]="(credit?.name || 'Profile image')">
+              </div>
+              <div class="credit__content">
+                <p class="name m-0">{{credit.name}}</p>
+                <p *ngIf="credit.cast" class="character">{{credit.cast.character}}</p>
+                <p *ngIf="credit.crew" class="job">{{credit.crew.job}}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>

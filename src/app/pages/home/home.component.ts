@@ -11,7 +11,7 @@ import { Media } from '../../modules/interfaces/media';
 })
 export class HomeComponent implements OnInit {
   movieList!: MediaFetch;
-  featuredShow: Media | undefined;
+  featuredShow?: Media;
 
   constructor(private mediaService: MediaService) { }
 

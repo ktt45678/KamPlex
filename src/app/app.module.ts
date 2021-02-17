@@ -1,12 +1,15 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HeaderModule } from './shared/header/header.module';
-import { FooterModule } from './shared/footer/footer.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
+import { HeaderModule } from './shared/header/header.module';
+import { FooterModule } from './shared/footer/footer.module';
+import { JoinModule } from './modules/pipes/join/join.module';
+import { ErrorInterceptor } from './modules/interceptors/error.interceptor';
+import { HttpErrorInterceptor } from './modules/interceptors/http-error.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -24,14 +27,25 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HeaderModule,
-    FooterModule,
     HttpClientModule,
     ButtonModule,
     BadgeModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    HeaderModule,
+    FooterModule,
+    JoinModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: ErrorInterceptor
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

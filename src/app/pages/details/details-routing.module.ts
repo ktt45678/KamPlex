@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { MediaDetailsComponent } from './media-details.component';
+import { DetailsComponent } from './details.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MediaDetailsComponent
+    component: DetailsComponent
   }
 ];
 
@@ -14,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MediaDetailsRoutingModule { }
+export class DetailsRoutingModule { }

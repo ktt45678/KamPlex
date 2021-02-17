@@ -16,10 +16,11 @@
                 <p-badge [value]="(featuredShow?.tvShow?.seasonCount || 0) + ((featuredShow?.tvShow?.seasonCount || 0) > 1 ? ' seasons' : ' season')" class="badge__duration ml-5px"></p-badge>
               </ng-container>
             </div>
-            <p class="mt-10px">{{featuredShow?.overview || ''}}</p>
+            <p class="featured__top--genres mt-10px">{{featuredShow!.genres | join: ', '}}</p>
+            <p class="featured__top--overview mt-10px">{{featuredShow?.overview || ''}}</p>
             <div class="featured__top--actions">
               <button [routerLink]="'/watch/' + featuredShow!._id" pButton icon="pi pi-play" iconPos="left" label="Play" class="btn__play p-button-rounded pl-2r pr-2r"></button>
-              <button routerLink="#" pButton icon="pi pi-info-circle" label="Details" class="btn__details p-button-rounded pl-2r pr-2r ml-10px"></button>
+              <button [routerLink]="'/details/' + featuredShow!._id" pButton icon="pi pi-info-circle" label="Details" class="btn__details p-button-rounded pl-2r pr-2r ml-10px"></button>
             </div>
           </div>
         </div>
@@ -34,14 +35,14 @@
           <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
             <div class="movie__item">
               <div class="movie__thumb h-100">
-                <img class="br-1_5px w-100 h-100" [routerLink]="'/watch/' + result._id" [lazyLoad]="(result?.posterPath || '')" [defaultImage]="(result?.posterPath ? result?.posterPath! + '&w=48&h=48' : '')" [alt]="(result?.title || 'Movie poster')">
+                <img class="br-1_5px w-100 h-100" [routerLink]="'/details/' + result._id" [lazyLoad]="(result?.posterPath || '')" [defaultImage]="(result?.posterPath ? result?.posterPath! + '&w=48&h=48' : '')" [alt]="(result?.title || 'Movie poster')">
               </div>
               <div class="movie__content">
                 <div class="movie__info d-flex">
                   <small class="year">{{(result?.movie?.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
                   <small class="duration ml-auto">{{result?.movie?.runtime || 0}} min</small>
                 </div>
-                <a class="movie__title" [routerLink]="'/watch/' + result._id">{{result.title || 'Unknown'}}</a>
+                <a class="movie__title" [routerLink]="'/details/' + result._id">{{result.title || 'Unknown'}}</a>
               </div>
             </div>
           </div>
