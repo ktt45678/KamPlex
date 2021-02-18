@@ -1,6 +1,8 @@
-# Kamplex
+[![Netlify Status](https://api.netlify.com/api/v1/badges/73375ea3-f8a7-446c-9268-3659b567c44e/deploy-status)](https://app.netlify.com/sites/kamplex/deploys)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.0.
+# KamPlex
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
 
 ## Development server
 
