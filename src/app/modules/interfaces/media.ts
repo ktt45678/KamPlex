@@ -41,7 +41,7 @@ export interface Media {
       }]
     }]
   };
-  video: [{
+  videos: [{
     _id: number,
     title?: string,
     site: string,

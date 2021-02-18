@@ -1,29 +1,24 @@
-<div class="spinner__center" *ngIf="!movieList">
+<div class="spinner__center" *ngIf="!movieList && !tvList">
   <p-progressSpinner></p-progressSpinner>
 </div>
-<section id="home" *ngIf="movieList">
+<section id="home" *ngIf="movieList && tvList">
   <div class="container-fluid">
     <div class="featured__top">
       <ng-container *ngIf="featuredShow">
-        <div class="featured__top--bg" [lazyLoad]="(featuredShow!.backdropPath || '')" [defaultImage]="(featuredShow!.backdropPath ? featuredShow!.backdropPath! + '&w=64&h=64' : '')"></div>
+        <div class="featured__top--bg" *ngIf="featuredShow.backdropPath" [lazyLoad]="(featuredShow.backdropPath)" [defaultImage]="(featuredShow.backdropPath + '&w=64&h=64')"></div>
         <div class="row align-items-center h-100">
           <div class="col-xl-7 col-lg-12 col-md-12">
-            <h1>{{featuredShow?.title || ''}}</h1>
+            <h1>{{featuredShow.title || ''}}</h1>
             <div class="featured__top--badges d-flex align-items-center">
-              <ng-container *ngIf="featuredShow?.movie">
-                <p-badge [value]="(featuredShow?.movie?.releaseDate | date: 'yyyy') || 'Unknown year'" class="badge__year"></p-badge>
-                <p-badge [value]="(featuredShow?.movie?.runtime || 0) + ' min'" class="badge__duration ml-5px"></p-badge>
-              </ng-container>
-              <ng-container *ngIf="featuredShow?.tvShow">
-                <p-badge [value]="(featuredShow?.tvShow?.firstAirDate | date: 'yyyy') || 'Unknown year'" class="badge__year"></p-badge>
-                <p-badge [value]="(featuredShow?.tvShow?.seasonCount || 0) + ((featuredShow?.tvShow?.seasonCount || 0) > 1 ? ' seasons' : ' season')" class="badge__duration ml-5px"></p-badge>
-              </ng-container>
+              <p-badge [value]="(featuredShow.releaseDate| date: 'yyyy') || 'Unknown year'" class="badge__year"></p-badge>
+              <p-badge [value]="(featuredShow.movie.runtime || 0) + ' min'" *ngIf="featuredShow.movie" class="badge__duration ml-5px"></p-badge>
+              <p-badge [value]="(featuredShow.tvShow.seasonCount || 0 | i18nPlural: seasonPlural)" *ngIf="featuredShow.tvShow" class="badge__season-count ml-5px"></p-badge>
             </div>
-            <p class="featured__top--genres mt-10px">{{featuredShow!.genres | join: ', '}}</p>
+            <p class="featured__top--genres mt-10px" *ngIf="featuredShow.genres.length">{{featuredShow.genres | join: ', '}}</p>
             <p class="featured__top--overview mt-10px">{{featuredShow?.overview || ''}}</p>
             <div class="featured__top--actions">
-              <button [routerLink]="'/watch/' + featuredShow!._id" pButton icon="pi pi-play" iconPos="left" label="Play" class="btn__play p-button-rounded pl-2r pr-2r"></button>
-              <button [routerLink]="'/details/' + featuredShow!._id" pButton icon="pi pi-info-circle" label="Details" class="btn__details p-button-rounded pl-2r pr-2r ml-10px"></button>
+              <button [routerLink]="'/watch/' + featuredShow._id" pButton icon="pi pi-play" iconPos="left" label="Play" class="btn__play p-button-rounded pl-2r pr-2r"></button>
+              <button [routerLink]="'/details/' + featuredShow._id" pButton icon="pi pi-info-circle" label="Details" class="btn__details p-button-rounded pl-2r pr-2r ml-10px"></button>
             </div>
           </div>
         </div>
@@ -34,18 +29,39 @@
     <div class="featured__content">
       <h3 class="fw-bold">Movies</h3>
       <div class="row">
-        <ng-container *ngFor="let result of movieList?.results">
+        <ng-container *ngFor="let result of movieList.results">
           <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
-            <div class="movie__item">
-              <div class="movie__thumb h-100">
-                <img class="br-2px w-100 h-100" [routerLink]="'/details/' + result._id" [lazyLoad]="(result?.posterPath || '')" [defaultImage]="(result?.posterPath ? result?.posterPath! + '&w=48&h=48' : '')" [alt]="(result?.title || 'Movie poster')">
+            <div class="media__item" [routerLink]="'/details/' + result._id">
+              <div class="media__thumb h-100">
+                <img *ngIf="result.posterPath" class="br-2px w-100 h-100" [lazyLoad]="(result.posterPath)" [defaultImage]="(result.posterPath + '&w=48&h=48')" [alt]="(result.title || 'Movie poster')">
+                <img *ngIf="!result.posterPath" class="br-2px w-100 h-100" lazyLoad="assets/img/media-poster-md.png" defaultImage="assets/img/media-poster-sm.png" alt="Movie poster">
               </div>
-              <div class="movie__content">
-                <div class="movie__info d-flex">
-                  <small class="year">{{(result?.movie?.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
-                  <small class="duration ml-auto">{{result?.movie?.runtime || 0}} min</small>
+              <div class="media__content">
+                <div class="media__info d-flex">
+                  <small class="year">{{(result.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
+                  <small class="duration ml-auto">{{result.movie?.runtime || 0}} min</small>
                 </div>
-                <a class="movie__title" [routerLink]="'/details/' + result._id">{{result.title || 'Unknown'}}</a>
+                <p class="media__title">{{result.title || 'Unknown'}}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <h3 class="fw-bold">TV Shows</h3>
+      <div class="row">
+        <ng-container *ngFor="let result of tvList.results">
+          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
+            <div class="media__item" [routerLink]="'/details/' + result._id">
+              <div class="media__thumb h-100">
+                <img *ngIf="result.posterPath" class="br-2px w-100 h-100" [lazyLoad]="(result.posterPath)" [defaultImage]="(result.posterPath + '&w=48&h=48')" [alt]="(result.title || 'TV show poster')">
+                <img *ngIf="!result.posterPath" class="br-2px w-100 h-100" lazyLoad="assets/img/media-poster-md.png" defaultImage="assets/img/media-poster-sm.png" alt="TV show poster">
+              </div>
+              <div class="media__content">
+                <div class="media__info d-flex">
+                  <small class="year">{{(result.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
+                  <small class="duration ml-auto">{{result.tvShow?.seasonCount || 0 | i18nPlural: seasonPlural}}</small>
+                </div>
+                <p class="media__title">{{result.title || 'Unknown'}}</p>
               </div>
             </div>
           </div>

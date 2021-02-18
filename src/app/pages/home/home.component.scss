@@ -45,35 +45,34 @@
 
 .featured__content {
   margin: 2.5rem auto;
-  .movie__item {
+  .media__item {
     height: 71.5%;
     margin: 1.5rem auto;
-    .movie__thumb {
+    cursor: pointer;
+    transition: opacity 0.2s;
+    &:hover, &:focus {
+      opacity: 0.7;
+    }
+    &:focus {
+      outline: none;
+    }
+    .media__thumb {
       img {
         object-fit: cover;
-        cursor: pointer;
-        transition: opacity 0.2s;
-        &:hover, &:focus {
-          opacity: 0.7;
-        }
       }
     }
-    .movie__content {
-      .movie__info {
+    .media__content {
+      .media__info {
         flex-wrap: nowrap;
         .year, .duration {
-          color: #fafafa;
+          color: #dadada;
         }
       }
-      .movie__title {
+      .media__title {
         font-family: 'Source Sans Pro', Arial, sans-serif;
         color: #ffffff;
         font-size: 16px;
         font-weight: 600;
-        transition: color 0.2s;
-        &:hover, &:focus {
-          color: rgba($color: #ffffff, $alpha: 0.7);
-        }
       }
     }
   }

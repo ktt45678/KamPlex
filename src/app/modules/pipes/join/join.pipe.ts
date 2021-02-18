@@ -5,7 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class JoinPipe implements PipeTransform {
 
-  transform(value: Array<any>, sep = ', '): string {
+  transform(value: Array<any> | undefined, sep = ', '): string {
+    if (!value) {
+      return '';
+    }
     return value.join(sep);
   }
 
