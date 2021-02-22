@@ -12,15 +12,15 @@ export class MediaService {
 
   private apiUrl: string = environment.apiUrl;
 
-  fetchMedia(params = {}) {
+  fetchMedia(params: any = {}) {
     return this.http.get<MediaFetch>(`${this.apiUrl}/media/fetch`, { params });
   }
 
-  getMediaDetails(id: number, params = {}) {
+  getMediaDetails(id: number, params: any = {}) {
     return this.http.get<Media>(`${this.apiUrl}/media/details/${id}`, { params });
   }
 
-  getStreamUrls(id: number, params = {}) {
+  getStreamUrls(id: number, params: any = {}) {
     return this.http.get<MediaStream[]>(`${this.apiUrl}/media/stream/${id}`, { params });
   }
 }

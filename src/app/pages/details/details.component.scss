@@ -1,18 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+$badge-color: #6c757d;
+$title-font: 'Source Sans Pro', Arial, sans-serif;
+$text-secondary-color: #dadada;
 
-#details {
-  .container-fluid {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-:host ::ng-deep {
-  .detail__top--badges {
-    .p-badge {
-      background: #6c757d !important;
-    }
-  }
+@mixin mt-mb-5px {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .scroll-x {
@@ -31,40 +23,13 @@
 }
 
 .detail {
-  margin: 2rem auto;
-}
-
-.detail__top {
-  height: 100vh;
-  min-height: 100vh;
-  .detail__top--bg {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    opacity: 0.4;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-  .detail__top--genres {
-    color: #ffffff;
-    font-size: 14px;
-  }
-  .row {
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-  h1 {
-    font-size: 42px;
-    font-weight: 700;
-    font-family: 'Source Sans Pro', Arial, sans-serif;
-  }
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .detail__info {
-  .info__inner {
-    margin: 5px auto;
+  &-content {
+    @include mt-mb-5px;
     p {
       color: #eaeaea !important;
       font-size: 15px;
@@ -73,107 +38,98 @@
         font-weight: 700;
       }
     }
-    .detail__info--overview {
-      display: none;
+  }
+  &-overview {
+    display: none;
+  }
+}
+
+.detail__tv {
+  &-season {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+  &-episode {
+    .p-button-sm {
+      padding: 5px 0;
+      font-size: 12.5px;
+      font-weight: 600;
     }
   }
 }
 
 .detail__credits {
   .flex-row {
+    @include mt-mb-5px;
     .col-4 {
-      margin: 5px;
       .credit__card {
-        .credit__image {
+        &-image {
+          --bs-aspect-ratio: 150%;
           img {
             object-fit: cover;
           }
         }
-        .credit__content {
+        &-content {
           .name {
-            font-size: 14px;
-            font-family: 'Source Sans Pro', Arial, sans-serif;
+            font-size: 15px;
+            font-family: $title-font;
             font-weight: 600;
           }
           .character, .job {
-            color: #dadada !important;
-            font-size: 12px;
+            color: $text-secondary-color !important;
+            font-size: 13.5px;
           }
         }
+      }
+      &:not(:last-child) {
+        margin-right: 5px;
       }
     }
   }
 }
 
 .detail__videos {
-  .scroll-x__item {
-    margin: 5px 3px;
-    .video__image {
-      cursor: pointer;
-      object-fit: cover;
+  .videos__inner {
+    .video__item {
+      @include mt-mb-5px;
+      .video__image {
+        cursor: pointer;
+        object-fit: cover;
+        transition: opacity 0.2s;
+        &:hover, &:focus {
+          opacity: 0.7;
+        }
+      }
+      &:not(:last-child) {
+        margin-right: 5px;
+      }
     }
   }
-}
-
-@media only screen and (max-width: 991px) {
 }
 
 @media only screen and (max-width: 767px) {
-  .detail__top {
-    h1 {
-      font-size: 38px;
-    }
-    .detail__top--overview {
-      display: none;
-    }
-    .detail__top--actions {
-      .btn__play, .btn__details {
-        margin-top: 0.5em;
-        font-size: 22px;
-      }
-    }
-  }
   .detail__info {
-    .info__inner {
-      .detail__info--overview {
-        display: block;
-      }
+    &-overview {
+      display: block;
     }
   }
 }
 
 @media only screen and (max-width: 479px) {
-  .detail__top {
-    h1 {
-      text-align: center;
-      font-size: 36px;
-    }
-    .detail__top--genres {
-      text-align: center;
-    }
-    .detail__top--badges {
-      justify-content: center;
-    }
-    .detail__top--actions {
-      text-align: center;
-      .btn__play, .btn__details {
-        margin-left: 0;
-        font-size: 20px;
-        width: 70%;
+  .detail__info {
+    &-content {
+      p {
+        font-size: 14px;
       }
     }
   }
-}
-
-@media only screen and (max-width: 319px) {
-  .detail__top {
-    h1 {
-      font-size: 32px;
+  .credit__card-content {
+    .name {
+      font-size: 14px !important;
     }
-    .detail__top--actions {
-      .btn__play, .btn__details {
-        font-size: 18px;
-      }
+    .character, .job {
+      font-size: 12px !important;
     }
   }
 }

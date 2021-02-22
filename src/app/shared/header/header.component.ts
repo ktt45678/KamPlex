@@ -8,15 +8,16 @@ import { Component, OnInit, HostListener, Input } from '@angular/core';
 export class HeaderComponent implements OnInit {
   @Input() isDynamicNavbar: boolean = false;
   isMenuExpanded: boolean = false;
+  currentPageYOffset: number = window.pageYOffset;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     if (this.isMenuExpanded || !this.isDynamicNavbar) { return; }
     const element = document.querySelector('.navbar');
-    if (window.pageYOffset > element!.clientHeight) {
-      element!.classList.add('bg-dark');
+    if (window.pageYOffset > this.currentPageYOffset) {
+      element!.classList.add('navbar-hidden');
     } else if (!this.isMenuExpanded) {
-      element!.classList.remove('bg-dark');
+      element!.classList.remove('navbar-hidden');
     }
   }
 

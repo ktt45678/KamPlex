@@ -1,0 +1,18 @@
+:host::ng-deep {
+  .p-toast-message-text {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  :host::ng-deep {
+    // Center it
+    .p-toast-display {
+      width: 95vw;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

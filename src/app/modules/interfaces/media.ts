@@ -8,59 +8,10 @@ export interface Media {
   overview?: string;
   posterPath?: string;
   backdropPath?: string;
-  movie?: {
-    runtime?: number,
-    releaseDate?: string,
-    status?: string,
-    adult?: boolean
-  };
-  tvShow?: {
-    episodeRuntime?: number[],
-    firstAirDate?: string,
-    lastAirDate?: string,
-    status?: string,
-    seasonCount?: number,
-    seasons: [{
-      airDate?: string,
-      seasonNumber?: number,
-      episodeCount?: number,
-      name?: string,
-      overview?: string,
-      posterPath?: string,
-      isPublic: boolean,
-      isAdded: boolean,
-      episodes?: [{
-        episodeNumber?: number,
-        runtime?: number,
-        name?: string,
-        overview?: string,
-        airDate?: string,
-        stillPath?: string,
-        isPublic: boolean,
-        isAdded: boolean
-      }]
-    }]
-  };
-  videos: [{
-    _id: number,
-    title?: string,
-    site: string,
-    key: string,
-    type: string
-  }];
-  credits: [{
-    tmdbId: string,
-    name?: string,
-    originalName?: string,
-    profilePath?: string,
-    department?: string,
-    crew?: {
-      job?: string
-    },
-    cast?: {
-      character?: string
-    }
-  }];
+  movie?: Movie;
+  tvShow?: TVShow;
+  videos: Video[];
+  credits: Credit[];
   genres: string[];
   popularity?: number;
   isPublic: number;
@@ -68,4 +19,69 @@ export interface Media {
   releaseDate?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+interface Movie {
+  runtime?: number;
+  releaseDate?: string;
+  status?: string;
+  adult?: boolean;
+}
+
+interface TVShow {
+  episodeRuntime?: number[];
+  firstAirDate?: string;
+  lastAirDate?: string;
+  status?: string;
+  seasonCount?: number;
+  seasons: Season[];
+}
+
+interface Season {
+  airDate?: string;
+  seasonNumber?: number;
+  episodeCount?: number;
+  name?: string;
+  overview?: string;
+  posterPath?: string;
+  isPublic: boolean;
+  isAdded: boolean;
+  episodes: Episode[];
+}
+
+interface Episode {
+  episodeNumber?: number;
+  runtime?: number;
+  name?: string;
+  overview?: string;
+  airDate?: string;
+  stillPath?: string;
+  isPublic: boolean;
+  isAdded: boolean;
+}
+
+interface Video {
+  _id: number;
+  title?: string;
+  site: string;
+  key: string;
+  type: string;
+}
+
+interface Credit {
+  tmdbId: string;
+  name?: string;
+  originalName?: string;
+  profilePath?: string;
+  department?: string;
+  crew?: Crew;
+  cast?: Cast;
+}
+
+interface Crew {
+  job?: string;
+}
+
+interface Cast {
+  character?: string;
 }

@@ -1,0 +1,4 @@
+<div class="d-flex flex-wrap justify-content-end gap-2">
+  <p-dropdown [options]="genreOptions" [ngModel]="selectedGenre" placeholder="Genre" scrollHeight="300px" (onChange)="filterBy($event)"></p-dropdown>
+  <p-dropdown [options]="sortOptions" [ngModel]="selectedSort" placeholder="Sort by" scrollHeight="300px" (onChange)="sortBy($event)"></p-dropdown>
+</div>

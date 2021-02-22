@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" [class.bg-dark]="!isDynamicNavbar">
+  <nav class="navbar navbar-expand-lg navbar-dark" [ngClass]="{'fixed-top': isDynamicNavbar, 'bg-dark': !isDynamicNavbar}">
     <div class="container-fluid">
       <a class="navbar-brand" routerLink="#">
         <img src="assets/img/logo-text.png" alt="">
@@ -10,13 +10,13 @@
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="#">Home</a>
+            <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="#">TV Shows</a>
+            <a class="nav-link" routerLink="/tv">TV Shows</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="#">Movies</a>
+            <a class="nav-link" routerLink="/movie">Movies</a>
           </li>
         </ul>
         <div class="input__search d-flex">

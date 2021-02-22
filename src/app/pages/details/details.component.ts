@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
+
 import { MediaService } from '../../services/media.service';
 import { Media } from '../../modules/interfaces/media';
 
@@ -16,18 +18,21 @@ export class DetailsComponent implements OnInit {
   activeVideoIndex: number = 0;
   youtubeUrl = 'https://www.youtube.com/embed/';
   youtubeThumbnailUrl = 'https://img.youtube.com/vi/';
-  seasonPlural = { '=0': 'No season', '=1': '# season', 'other': '# seasons' };
+  seasonPlural = { '=0': 'No seasons', '=1': '# season', 'other': '# seasons' };
 
   constructor(private route: ActivatedRoute, private mediaService: MediaService) { }
 
   ngOnInit(): void {
     this.mediaId = Number(this.route.snapshot.paramMap.get('id'));
-    this.mediaService.getMediaDetails(this.mediaId).subscribe(data => {
+    this.mediaService.getMediaDetails(this.mediaId).pipe(map(data => {
+      data.videos = data.videos.filter(v => v.site.toLowerCase() === 'youtube');
+      return data;
+    })).subscribe(data => {
       this.media = data;
     });
   }
 
-  imageClick(index: number) {
+  viewVideo(index: number) {
     this.activeVideoIndex = index;
     this.displayVideo = true;
   }

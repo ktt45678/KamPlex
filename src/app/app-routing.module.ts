@@ -15,6 +15,14 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
+        path: 'tv',
+        loadChildren: () => import('./pages/tv/tv.module').then(m => m.TvModule)
+      },
+      {
+        path: 'movie',
+        loadChildren: () => import('./pages/movie/movie.module').then(m => m.MovieModule)
+      },
+      {
         path: 'details/:id',
         loadChildren: () => import('./pages/details/details.module').then(m => m.DetailsModule)
       }
@@ -33,7 +41,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'enabled' })],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

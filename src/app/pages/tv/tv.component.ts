@@ -6,12 +6,12 @@ import { MediaFetch } from '../../modules/interfaces/media-fetch';
 import { Media } from '../../modules/interfaces/media';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-tv',
+  templateUrl: './tv.component.html',
+  styleUrls: ['./tv.component.scss'],
   providers: [MediaService]
 })
-export class HomeComponent implements OnInit {
+export class TvComponent implements OnInit {
   pageLoading: boolean = false;
   mediaList!: MediaFetch;
   featuredShow?: Media;
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private mediaService: MediaService) { }
 
   ngOnInit(): void {
-    this.mediaService.fetchMedia({ page: 1, limit: 1, sort: 'createdAt:-1' }).subscribe(data => {
+    this.mediaService.fetchMedia({ type: 'tv', page: 1, limit: 1, sort: 'createdAt:-1' }).subscribe(data => {
       this.featuredShow = data.totalResults > 0 ? data.results[0] : undefined;
     });
     this.route.queryParams.subscribe(p => {
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
 
   loadPage(page: number): void {
     this.pageLoading = true;
-    this.mediaService.fetchMedia({ genre: this.selectedGenre, sort: this.selectedSort, page, limit: this.itemLimit }).subscribe(data => {
+    this.mediaService.fetchMedia({ type: 'tv', genre: this.selectedGenre, sort: this.selectedSort, page, limit: this.itemLimit }).subscribe(data => {
       this.mediaList = data;
       this.pageFirst = this.itemLimit * (page - 1);
       this.pageLoading = false;

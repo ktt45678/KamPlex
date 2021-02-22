@@ -1,7 +1,12 @@
+.navbar-hidden {
+  top: -80px;
+  opacity: 0;
+}
+
 .navbar {
   padding: 0.75rem 1rem;
   background-color: transparent;
-  transition: background-color 0.2s linear;
+  transition: background-color 0.2s, top 0.2s, opacity 0.25s ease-in;
   .navbar-brand {
     img {
       width: 120px;

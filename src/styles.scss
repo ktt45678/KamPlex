@@ -1,8 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+
 body {
   font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
   font-weight: 300;
   background-color: #121212;
+}
+
+.container-full {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 img:focus, a:focus {
@@ -61,8 +68,16 @@ a {
   margin-left: 10px;
 }
 
+.mb-3px {
+  margin-bottom: 3px;
+}
+
 .mb-5px {
   margin-bottom: 5px;
+}
+
+.mb-6px {
+  margin-bottom: 6px;
 }
 
 .spinner__center {

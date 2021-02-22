@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { MediaService } from '../../services/media.service';
 import { MediaStream } from '../../modules/interfaces/media-stream';
 
@@ -12,6 +13,8 @@ import { MediaStream } from '../../modules/interfaces/media-stream';
 export class WatchComponent implements OnInit {
   isPlayable: boolean = false;
   mediaId!: number;
+  season!: number;
+  episode!: number;
   player!: Plyr;
   videoSources: Plyr.Source[] = [];
   videoOptions: Plyr.Options = {
@@ -24,13 +27,16 @@ export class WatchComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaId = Number(this.route.snapshot.paramMap.get('id'));
-    this.mediaService.getStreamUrls(this.mediaId).subscribe(data => {
+    this.season = Number(this.route.snapshot.queryParamMap.get('s'));
+    this.episode = Number(this.route.snapshot.queryParamMap.get('e'));
+    const srteamParams = this.season && this.episode ? { season: this.season, episode: this.episode } : {};
+    this.mediaService.getStreamUrls(this.mediaId, srteamParams).subscribe(data => {
       this.loadVideos(data);
       this.isPlayable = true;
     });
   }
 
-  private loadVideos(source: MediaStream[]): void {
+  loadVideos(source: MediaStream[]): void {
     let i = source.length;
     while (i--) {
       this.videoSources.push({

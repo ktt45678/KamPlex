@@ -5,7 +5,7 @@
   <app-featured [media]="featuredShow"></app-featured>
   <div class="container" id="page">
     <div class="page page__content">
-      <h3 class="fw-bold">Movies & TV Shows</h3>
+      <h3 class="fw-bold">Movies</h3>
       <app-media-filter [selectedGenre]="selectedGenre" [selectedSort]="selectedSort"></app-media-filter>
       <div class="row">
         <ng-container *ngIf="pageLoading">
@@ -34,8 +34,7 @@
               <div class="media__item-content">
                 <div class="media__info d-flex">
                   <small class="year">{{(result.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
-                  <small *ngIf="result.movie" class="duration ml-auto">{{result.movie.runtime || 0}} min</small>
-                  <small *ngIf="result.tvShow" class="seasons ml-auto">{{result.tvShow.seasonCount || 0 | i18nPlural: seasonPlural}}</small>
+                  <small class="duration ml-auto">{{result.movie?.runtime || 0}} min</small>
                 </div>
                 <p class="media__title">{{result.title || 'Unknown'}}</p>
               </div>
