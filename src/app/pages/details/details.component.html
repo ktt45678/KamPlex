@@ -24,10 +24,10 @@
         <p *ngIf="!media.tvShow.seasons.length">No seasons available</p>
         <div class="detail__tv-season" *ngFor="let season of media.tvShow.seasons; let index = index;">
           <p class="fw-bold">Season {{season.seasonNumber}}</p>
-          <div class="detail__tv-episode d-flex flex-wrap gap-1">
-            <p *ngIf="!media.tvShow.seasons[index].episodes.length">No episodes available</p>
+          <p *ngIf="!media.tvShow.seasons[index].episodes.length">No episodes available</p>
+          <div class="detail__tv-episode d-flex flex-wrap m-gap-1">
             <ng-container *ngFor="let episode of media.tvShow.seasons[index].episodes; let index = index;">
-              <button pButton class="p-button-outlined p-button-rounded p-button-sm" [label]="episode.episodeNumber + ''" [routerLink]="['/watch', media._id]" [queryParams]="{ s: season.seasonNumber, e: episode.episodeNumber}"></button>
+              <button pButton class="p-button-rounded p-button-sm" [label]="episode.episodeNumber + ''" [routerLink]="['/watch', media._id]" [queryParams]="{ s: season.seasonNumber, e: episode.episodeNumber}"></button>
             </ng-container>
           </div>
         </div>

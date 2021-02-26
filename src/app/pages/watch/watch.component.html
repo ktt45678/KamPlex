@@ -1,3 +1,6 @@
+<div *ngIf="!isPlayable" class="spinner__center">
+  <p-progressSpinner></p-progressSpinner>
+</div>
 <section id="video-player">
-  <div *ngIf="isPlayable" plyr plyrTitle="Media playback" [plyrPlaysInline]="false" [plyrSources]="videoSources" [plyrOptions]="videoOptions" (plyrInit)="player = $event"></div>
+  <div *ngIf="isPlayable" plyr plyrTitle="Media playback" [plyrSources]="videoSources" [plyrOptions]="videoOptions"></div>
 </section>

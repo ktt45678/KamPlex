@@ -1,6 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
+html {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #424242;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #646464;
+  }
+}
+
 body {
   font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
   font-weight: 300;
@@ -86,4 +99,18 @@ a {
   align-items: center;
   height: 100vh;
   margin-bottom: 35px;
+}
+
+.m-gap-2 > * {
+  margin-bottom: .5rem;
+  &:not(:last-child) {
+    margin-right: .5rem;
+  }
+}
+
+.m-gap-1 > * {
+  margin-bottom: .25rem;
+  &:not(:last-child) {
+    margin-right: .25rem;
+  }
 }

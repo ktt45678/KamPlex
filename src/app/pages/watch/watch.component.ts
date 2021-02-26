@@ -15,7 +15,6 @@ export class WatchComponent implements OnInit {
   mediaId!: number;
   season!: number;
   episode!: number;
-  player!: Plyr;
   videoSources: Plyr.Source[] = [];
   videoOptions: Plyr.Options = {
     controls: ['play-large', 'play', 'rewind', 'fast-forward', 'progress', 'current-time', 'duration', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
