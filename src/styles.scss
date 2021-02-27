@@ -93,12 +93,16 @@ a {
   margin-bottom: 6px;
 }
 
-.spinner__center {
+.spinner--center {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin-bottom: 35px;
+}
+
+.content {
+  margin-top: 90px;
+  margin-bottom: 60px;
 }
 
 .m-gap-2 > * {

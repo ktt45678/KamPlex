@@ -29,7 +29,7 @@ export class MovieComponent implements OnInit {
     this.route.queryParams.subscribe(p => {
       this.selectedGenre = p.genre || undefined;
       this.selectedSort = p.sort || 'createdAt:-1';
-      this.loadPage(p.page || 1);
+      this.loadPage(Number(p.page) || 1);
     });
   }
 

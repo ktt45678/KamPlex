@@ -1,10 +1,10 @@
-<div class="spinner__center" *ngIf="!(mediaList && featuredShow)">
+<div class="spinner--center" *ngIf="!(mediaList && featuredShow)">
   <p-progressSpinner></p-progressSpinner>
 </div>
 <section id="home" *ngIf="(mediaList && featuredShow)">
   <app-featured [media]="featuredShow"></app-featured>
-  <div class="container" id="page">
-    <div class="page page__content">
+  <div class="container content" id="page">
+    <div class="page__content">
       <h3 class="fw-bold">Movies</h3>
       <app-media-filter [selectedGenre]="selectedGenre" [selectedSort]="selectedSort"></app-media-filter>
       <div class="row">
@@ -26,19 +26,21 @@
         <ng-container *ngIf="!pageLoading">
           <p *ngIf="!mediaList.results.length" class="text-center">No results were found</p>
           <div *ngFor="let result of mediaList.results; trackBy: trackMedia" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
-            <div class="media__item" [routerLink]="['/details', result._id]">
-              <div class="media__item-thumb ratio">
-                <img *ngIf="result.posterPath" class="br-2px" [lazyLoad]="(result.posterPath)" [defaultImage]="(result.posterPath + '&w=48&h=48')" [alt]="(result.title || 'Media poster')">
-                <img *ngIf="!result.posterPath" class="br-2px" lazyLoad="assets/img/media-poster-md.png" defaultImage="assets/img/media-poster-sm.png" alt="Media poster">
-              </div>
-              <div class="media__item-content">
-                <div class="media__info d-flex">
-                  <small class="year">{{(result.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
-                  <small class="duration ml-auto">{{result.movie?.runtime || 0}} min</small>
+            <a [routerLink]="['/details', result._id]">
+              <div class="media__item">
+                <div class="media__item-thumb ratio">
+                  <img *ngIf="result.posterPath" class="br-2px" [lazyLoad]="result.posterPath" [defaultImage]="result.posterPath + '&w=48&h=48'" [alt]="result.title || 'Media poster'">
+                  <img *ngIf="!result.posterPath" class="br-2px" lazyLoad="assets/img/media-poster-md.png" defaultImage="assets/img/media-poster-sm.png" alt="Media poster">
                 </div>
-                <p class="media__title">{{result.title || 'Unknown'}}</p>
+                <div class="media__item-content">
+                  <div class="media__info d-flex">
+                    <small class="year">{{(result.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
+                    <small class="duration ml-auto">{{result.movie?.runtime || 0}} min</small>
+                  </div>
+                  <p class="media__title">{{result.title || 'Unknown'}}</p>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
         </ng-container>
       </div>

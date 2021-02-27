@@ -22,11 +22,6 @@ $text-secondary-color: #dadada;
   }
 }
 
-.detail {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 .detail__info {
   &-content {
     @include mt-mb-5px;

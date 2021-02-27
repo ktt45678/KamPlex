@@ -1,11 +1,11 @@
-<div class="spinner__center" *ngIf="!media">
+<div class="spinner--center" *ngIf="!media">
   <p-progressSpinner></p-progressSpinner>
 </div>
 <section id="details" *ngIf="media">
   <app-featured [media]="media" [isDetailPage]="true"></app-featured>
-  <div class="container">
-    <div [class.row]="media.tvShow">
-      <div class="detail detail__info" [class.col-sm-6]="media.tvShow">
+  <div class="container content">
+    <div class="mb-3" [class.row]="media.tvShow">
+      <div class="detail__info" [class.col-sm-6]="media.tvShow">
         <h3 class="fw-bold">Information</h3>
         <div class="detail__info-content">
           <p class="mb-5px detail__info-overview" *ngIf="media.overview">{{media.overview}}</p>
@@ -19,7 +19,7 @@
           <p class="mb-5px" *ngIf="media.tvShow"><span>Status:</span> {{media.tvShow.status || 'None'}}</p>
         </div>
       </div>
-      <div class="detail detail__tv col-sm-6" *ngIf="media.tvShow">
+      <div class="detail__tv col-sm-6" *ngIf="media.tvShow">
         <h3 class="fw-bold">Episodes</h3>
         <p *ngIf="!media.tvShow.seasons.length">No seasons available</p>
         <div class="detail__tv-season" *ngFor="let season of media.tvShow.seasons; let index = index;">
@@ -27,13 +27,15 @@
           <p *ngIf="!media.tvShow.seasons[index].episodes.length">No episodes available</p>
           <div class="detail__tv-episode d-flex flex-wrap m-gap-1">
             <ng-container *ngFor="let episode of media.tvShow.seasons[index].episodes; let index = index;">
-              <button pButton class="p-button-rounded p-button-sm" [label]="episode.episodeNumber + ''" [routerLink]="['/watch', media._id]" [queryParams]="{ s: season.seasonNumber, e: episode.episodeNumber}"></button>
+              <a [routerLink]="['/watch', media._id]" [queryParams]="{ s: season.seasonNumber, e: episode.episodeNumber}">
+                <button pButton class="p-button-rounded p-button-sm" [label]="episode.episodeNumber + ''"></button>
+              </a>
             </ng-container>
           </div>
         </div>
       </div>
     </div>
-    <div class="detail detail__credits">
+    <div class="detail__credits my-3">
       <h3 class="fw-bold">Cast & Crew</h3>
       <p *ngIf="!media.credits.length">No members available</p>
       <div class="d-flex flex-row scroll-x">
@@ -52,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="detail detail__videos">
+    <div class="detail__videos my-3">
       <h3 class="fw-bold">Videos</h3>
       <p *ngIf="!media.videos.length">No videos available</p>
       <div class="videos__inner">

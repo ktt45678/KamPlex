@@ -1,6 +1,51 @@
-<div *ngIf="!isPlayable" class="spinner__center">
+<div *ngIf="!isPlayable" class="spinner--center">
   <p-progressSpinner></p-progressSpinner>
 </div>
-<section id="video-player">
-  <div *ngIf="isPlayable" plyr plyrTitle="Media playback" [plyrSources]="videoSources" [plyrOptions]="videoOptions"></div>
+<section id="video__player">
+  <div class="player position-relative" (mouseenter)="showControls = true" (mouseleave)="showControls = false" (touchstart)="handleTouchStart()" (touchend)="handleTouchEnd()">
+    <div *ngIf="isPlayable" plyr plyrTitle="Media playback" [plyrSources]="videoSources" [plyrOptions]="videoOptions" (plyrEnded)="nextEpisode()"></div>
+    <button pButton type="button" icon="pi pi-arrow-left" class="player__return p-button-text position-absolute top-0 start-0" [class.btn__hidden]="!showControls" (click)="back()"></button>
+    <button *ngIf="episode" pButton type="button" icon="pi pi-list" class="player__select p-button-text position-absolute top-0 end-0" [class.btn__hidden]="!showControls" (click)="displaySidebar = true"></button>
+    <p-sidebar [(visible)]="displaySidebar" position="right">
+      <div *ngIf="!media" class="spinner--center">
+        <p-progressSpinner></p-progressSpinner>
+      </div>
+      <div *ngIf="media && media.tvShow" class="container-fuild mx-2">
+        <div *ngIf="currentEpisode" class="playing__info">
+          <h3 class="fw-bold mb-2">Now Playing</h3>
+          <div class="episode px-3 py-3 d-flex">
+            <div class="episode__image ratio ratio-16x9">
+              <img *ngIf="currentEpisode.stillPath" [src]="currentEpisode.stillPath" [alt]="currentEpisode.name || 'Episode image'">
+              <img *ngIf="!currentEpisode.stillPath" class="br-2px" src="assets/img/episode-image-md.png" alt="Episode image">
+            </div>
+            <div class="episode__info">
+              <p class="mb-2 fw-bold episode__name">{{currentEpisode.episodeNumber}}. {{currentEpisode.name}}</p>
+              <p class="mb-0 episode__overview">{{currentEpisode.overview}}</p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="media.tvShow.seasons.length" class="seasons">
+          <ng-container *ngFor="let seasonItem of media.tvShow.seasons; let index = index; trackBy: trackMedia">
+            <h3 class="fw-bold mb-2 my-1">Season {{seasonItem.seasonNumber}}</h3>
+            <div *ngIf="media.tvShow.seasons[index].episodes.length" class="episodes">
+              <ng-container *ngFor="let episodeItem of media.tvShow.seasons[index].episodes; trackBy: trackMedia">
+                <a [routerLink]="[]" [queryParams]="{s: seasonItem.seasonNumber, e: episodeItem.episodeNumber}" (click)="displaySidebar = false">
+                  <div class="episode px-3 py-3 d-flex">
+                    <div class="episode__image ratio ratio-16x9">
+                      <img *ngIf="episodeItem.stillPath" [lazyLoad]="episodeItem.stillPath" [defaultImage]="episodeItem.stillPath + '&w=48&h=48'" [alt]="episodeItem.name || 'Episode image'">
+                      <img *ngIf="!episodeItem.stillPath" class="br-2px" lazyLoad="assets/img/episode-image-md.png" defaultImage="assets/img/episode-image-sm.png" alt="Episode image">
+                    </div>
+                    <div class="episode__info">
+                      <p class="mb-2 fw-bold episode__name">{{episodeItem.episodeNumber}}. {{episodeItem.name}}</p>
+                      <p class="mb-0 episode__overview">{{episodeItem.overview}}</p>
+                    </div>
+                  </div>
+                </a>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </p-sidebar>
+  </div>
 </section>

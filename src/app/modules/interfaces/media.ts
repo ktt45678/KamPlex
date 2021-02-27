@@ -21,14 +21,14 @@ export interface Media {
   updatedAt: string;
 }
 
-interface Movie {
+export interface Movie {
   runtime?: number;
   releaseDate?: string;
   status?: string;
   adult?: boolean;
 }
 
-interface TVShow {
+export interface TVShow {
   episodeRuntime?: number[];
   firstAirDate?: string;
   lastAirDate?: string;
@@ -37,7 +37,7 @@ interface TVShow {
   seasons: Season[];
 }
 
-interface Season {
+export interface Season {
   airDate?: string;
   seasonNumber?: number;
   episodeCount?: number;
@@ -49,7 +49,7 @@ interface Season {
   episodes: Episode[];
 }
 
-interface Episode {
+export interface Episode {
   episodeNumber?: number;
   runtime?: number;
   name?: string;
@@ -60,7 +60,7 @@ interface Episode {
   isAdded: boolean;
 }
 
-interface Video {
+export interface Video {
   _id: number;
   title?: string;
   site: string;
@@ -68,7 +68,7 @@ interface Video {
   type: string;
 }
 
-interface Credit {
+export interface Credit {
   tmdbId: string;
   name?: string;
   originalName?: string;
@@ -78,10 +78,10 @@ interface Credit {
   cast?: Cast;
 }
 
-interface Crew {
+export interface Crew {
   job?: string;
 }
 
-interface Cast {
+export interface Cast {
   character?: string;
 }
