@@ -23,7 +23,7 @@
         <h3 class="fw-bold">Episodes</h3>
         <p *ngIf="!media.tvShow.seasons.length">No seasons available</p>
         <div class="detail__tv-season" *ngFor="let season of media.tvShow.seasons; let index = index;">
-          <p class="fw-bold">Season {{season.seasonNumber}}</p>
+          <p class="fw-bold">{{season.seasonNumber | i18nPlural: seasonName}}</p>
           <p *ngIf="!media.tvShow.seasons[index].episodes.length">No episodes available</p>
           <div class="detail__tv-episode d-flex flex-wrap m-gap-1">
             <ng-container *ngFor="let episode of media.tvShow.seasons[index].episodes; let index = index;">

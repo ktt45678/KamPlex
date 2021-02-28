@@ -14,7 +14,7 @@ import { Media } from '../../modules/interfaces/media';
 export class HomeComponent implements OnInit {
   pageLoading: boolean = false;
   mediaList!: MediaFetch;
-  featuredShow?: Media;
+  featuredShow!: Media;
   itemLimit: number = 30;
   pageFirst: number = 0;
   selectedGenre?: string;
@@ -24,8 +24,8 @@ export class HomeComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private mediaService: MediaService) { }
 
   ngOnInit(): void {
-    this.mediaService.fetchMedia({ page: 1, limit: 1, sort: 'createdAt:-1' }).subscribe(data => {
-      this.featuredShow = data.totalResults > 0 ? data.results[0] : undefined;
+    this.mediaService.getLatestMedia().subscribe(data => {
+      this.featuredShow = data;
     });
     this.route.queryParams.subscribe(p => {
       this.selectedGenre = p.genre || undefined;

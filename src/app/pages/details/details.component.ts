@@ -19,6 +19,7 @@ export class DetailsComponent implements OnInit {
   youtubeUrl = 'https://www.youtube.com/embed/';
   youtubeThumbnailUrl = 'https://img.youtube.com/vi/';
   seasonPlural = { '=0': 'No seasons', '=1': '# season', 'other': '# seasons' };
+  seasonName = { '=0': 'Specials', 'other': 'Season #' };
 
   constructor(private route: ActivatedRoute, private mediaService: MediaService) { }
 

@@ -19,14 +19,14 @@
               <img *ngIf="!currentEpisode.stillPath" class="br-2px" src="assets/img/episode-image-md.png" alt="Episode image">
             </div>
             <div class="episode__info">
-              <p class="mb-2 fw-bold episode__name">{{currentEpisode.episodeNumber}}. {{currentEpisode.name}}</p>
-              <p class="mb-0 episode__overview">{{currentEpisode.overview}}</p>
+              <p class="mb-2 fw-bold episode__name">{{currentEpisode.episodeNumber}}. {{currentEpisode.name || ''}}</p>
+              <p class="mb-0 episode__overview">{{currentEpisode.overview || ''}}</p>
             </div>
           </div>
         </div>
         <div *ngIf="media.tvShow.seasons.length" class="seasons">
           <ng-container *ngFor="let seasonItem of media.tvShow.seasons; let index = index; trackBy: trackMedia">
-            <h3 class="fw-bold mb-2 my-1">Season {{seasonItem.seasonNumber}}</h3>
+            <h3 class="fw-bold mb-2 my-1">{{seasonItem.seasonNumber | i18nPlural: seasonName}}</h3>
             <div *ngIf="media.tvShow.seasons[index].episodes.length" class="episodes">
               <ng-container *ngFor="let episodeItem of media.tvShow.seasons[index].episodes; trackBy: trackMedia">
                 <a [routerLink]="[]" [queryParams]="{s: seasonItem.seasonNumber, e: episodeItem.episodeNumber}" (click)="displaySidebar = false">
@@ -36,8 +36,8 @@
                       <img *ngIf="!episodeItem.stillPath" class="br-2px" lazyLoad="assets/img/episode-image-md.png" defaultImage="assets/img/episode-image-sm.png" alt="Episode image">
                     </div>
                     <div class="episode__info">
-                      <p class="mb-2 fw-bold episode__name">{{episodeItem.episodeNumber}}. {{episodeItem.name}}</p>
-                      <p class="mb-0 episode__overview">{{episodeItem.overview}}</p>
+                      <p class="mb-2 fw-bold episode__name">{{episodeItem.episodeNumber}}. {{episodeItem.name || ''}}</p>
+                      <p class="mb-0 episode__overview">{{episodeItem.overview || ''}}</p>
                     </div>
                   </div>
                 </a>
