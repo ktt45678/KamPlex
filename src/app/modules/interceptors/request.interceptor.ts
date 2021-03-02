@@ -1,17 +1,29 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private injector: Injector) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({
-      params: this.cleanParams(request.params),
-      body: this.cleanBody(request.body)
-    });
+    const authService = this.injector.get(AuthenticationService);
+    if (request.url.startsWith(environment.apiUrl)) {
+      const accessToken = authService.accessTokenValue;
+      request = request.clone({
+        params: this.cleanParams(request.params),
+        body: this.cleanBody(request.body)
+      });
+      if (accessToken && !request.headers.get('Authorization')) {
+        request = request.clone({
+          headers: request.headers.set('Authorization', `Bearer ${accessToken}`)
+        });
+      }
+    }
     return next.handle(request);
   }
 
