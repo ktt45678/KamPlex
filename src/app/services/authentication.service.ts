@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import jwt_decode from 'jwt-decode';
 import { environment } from '../../environments/environment';
 
 import { User, Token } from '../modules/interfaces/user';
@@ -17,19 +18,19 @@ export class AuthenticationService {
   public currentUser: Observable<User | null>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User | null>(null);
+    const user = this.accessTokenValue ? jwt_decode<User>(this.accessTokenValue) : null;
+    this.currentUserSubject = new BehaviorSubject<User | null>(user);
     this.currentUser = this.currentUserSubject.asObservable();
-    this.setCurrentUser();
   }
 
   public get accessTokenValue() {
-    const accessToken = localStorage.getItem('accessToken') || 'false';
-    return JSON.parse(accessToken);
+    const accessToken = localStorage.getItem('accessToken');
+    return accessToken ? JSON.parse(accessToken) : null;
   }
 
   public get refreshTokenValue() {
-    const refreshToken = localStorage.getItem('refreshToken') || 'false';
-    return JSON.parse(refreshToken);
+    const refreshToken = localStorage.getItem('refreshToken');
+    return refreshToken ? JSON.parse(refreshToken) : null;
   }
 
   public get currentUserValue(): User | null {
@@ -40,9 +41,10 @@ export class AuthenticationService {
   }
 
   public setCurrentUser() {
-    this.http.get<User>(`${this.apiUrl}/user`).subscribe(data => {
+    return this.http.get<User>(`${this.apiUrl}/user`).pipe(map(data => {
       this.currentUserSubject.next(data);
-    });
+      return data;
+    }));
   }
 
   login(body: any = {}) {
@@ -100,7 +102,7 @@ export class AuthenticationService {
 
   private startRefreshTokenTimer() {
     // Parse json object from base64 encoded jwt token
-    const jwtToken = JSON.parse(atob(this.accessTokenValue.split('.')[1]));
+    const jwtToken = jwt_decode<any>(this.accessTokenValue);
     // Set a timeout to refresh the token a minute before it expires
     const expires = new Date(jwtToken.exp * 1000);
     const timeout = expires.getTime() - Date.now() - (60 * 1000);

@@ -1,4 +1,4 @@
-import { Injectable, Injector, NgZone } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -9,13 +9,12 @@ import { AuthenticationService } from '../../services/authentication.service';
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
-  constructor(private zone: NgZone, private messageService: MessageService, private injector: Injector) { }
+  constructor(private zone: NgZone, private messageService: MessageService, private authService: AuthenticationService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authService = this.injector.get(AuthenticationService);
     return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
-        authService.logout();
+        this.authService.logout();
         location.reload();
       } else if (error.status) {
         const summary = `${error.status} Error`;

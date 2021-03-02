@@ -1,0 +1,19 @@
+.form {
+  max-width: 500px;
+  background-color: #1e1e1e;
+  box-shadow: 0 0 0 1px #333333;
+  &__group {
+    padding: 32px;
+  }
+  &__control {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+  &__error {
+    height: 18px;
+    small {
+      font-size: 75%;
+    }
+  }
+}

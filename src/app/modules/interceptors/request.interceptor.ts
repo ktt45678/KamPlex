@@ -1,4 +1,4 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -8,12 +8,11 @@ import { AuthenticationService } from '../../services/authentication.service';
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
-  constructor(private injector: Injector) { }
+  constructor(private authService: AuthenticationService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authService = this.injector.get(AuthenticationService);
     if (request.url.startsWith(environment.apiUrl)) {
-      const accessToken = authService.accessTokenValue;
+      const accessToken = this.authService.accessTokenValue;
       request = request.clone({
         params: this.cleanParams(request.params),
         body: this.cleanBody(request.body)

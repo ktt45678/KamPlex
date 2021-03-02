@@ -13,7 +13,7 @@
       <div *ngIf="media && media.tvShow" class="container-fuild mx-2">
         <div *ngIf="currentEpisode" class="playing__info">
           <h3 class="fw-bold mb-2">Now Playing</h3>
-          <div class="episode px-3 py-3 d-flex">
+          <div class="episode br-5px px-3 py-3 d-flex">
             <div class="episode__image ratio ratio-16x9">
               <img *ngIf="currentEpisode.stillPath" [src]="currentEpisode.stillPath" [alt]="currentEpisode.name || 'Episode image'">
               <img *ngIf="!currentEpisode.stillPath" class="br-2px" src="assets/img/episode-image-md.png" alt="Episode image">

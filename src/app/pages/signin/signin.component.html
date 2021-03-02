@@ -1,1 +1,38 @@
-<p>signin works!</p>
+<section id="login">
+  <div class="container">
+    <div class="form br-5px mx-auto my-5 py-5">
+      <h3 class="mb-2 text-center fw-bold">Sign In</h3>
+      <form [formGroup]="signInForm" (ngSubmit)="onSignIn(signInForm.value)">
+        <div class="form__group">
+          <div class="form__control">
+            <span class="p-float-label">
+              <input id="username" class="w-100 h-100" type="username" pInputText formControlName="username">
+              <label for="username">Username</label>
+            </span>
+            <div class="form__error">
+              <ng-container *ngIf="fc.username.touched && fc.username.invalid">
+                <small *ngIf="fc.username.errors?.required" class="p-error">Username must not be empty.</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="form__control">
+            <span class="p-field p-float-label">
+              <input id="password" class="w-100 h-100" type="password" pInputText formControlName="password">
+              <label for="password">Password</label>
+            </span>
+            <div class="form__error">
+              <ng-container *ngIf="fc.password.touched && fc.password.invalid">
+                <small *ngIf="fc.password.errors?.required" class="p-error">Password must not be empty.</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="form__submit w-100">
+            <div class="d-flex">
+              <p-button type="sub" [disabled]="signInForm.invalid || formLoading" label="Sign In" class="ms-auto"></p-button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

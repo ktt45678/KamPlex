@@ -62,6 +62,16 @@ import { AuthenticationService } from './services/authentication.service';
     {
       provide: ErrorHandler,
       useClass: ErrorInterceptor
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
