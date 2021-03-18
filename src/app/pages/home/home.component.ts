@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MediaService } from '../../services/media.service';
-import { MediaFetch } from '../../modules/interfaces/media-fetch';
-import { Media } from '../../modules/interfaces/media';
+import { IMediaFetch } from '../../modules/interfaces/media-fetch';
+import { IMedia } from '../../modules/interfaces/media';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +13,13 @@ import { Media } from '../../modules/interfaces/media';
 })
 export class HomeComponent implements OnInit {
   pageLoading: boolean = false;
-  mediaList!: MediaFetch;
-  featuredShow!: Media;
+  mediaList!: IMediaFetch;
+  featuredShow!: IMedia;
   itemLimit: number = 30;
   pageFirst: number = 0;
   selectedGenre?: string;
   selectedSort?: string;
-  seasonPlural = { '=0': 'No seasons', '=1': '# season', 'other': '# seasons' };
+  selectedView?: number;
 
   constructor(private route: ActivatedRoute, private router: Router, private mediaService: MediaService) { }
 
@@ -35,7 +35,8 @@ export class HomeComponent implements OnInit {
   }
 
   paginate(event: any): void {
-    this.router.navigate([], { relativeTo: this.route, queryParams: { page: event.page + 1 }, queryParamsHandling: 'merge', fragment: 'page' });
+    if (!this.route.snapshot.queryParamMap.get('page') && !event.page) { return; }
+    this.router.navigate([], { queryParams: { page: event.page + 1 }, queryParamsHandling: 'merge', fragment: 'page' });
   }
 
   loadPage(page: number): void {
@@ -45,10 +46,6 @@ export class HomeComponent implements OnInit {
       this.pageFirst = this.itemLimit * (page - 1);
       this.pageLoading = false;
     });
-  }
-
-  trackMedia(index: number, item: any) {
-    return item?._id || null;
   }
 
 }

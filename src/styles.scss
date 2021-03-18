@@ -15,9 +15,19 @@ html {
 }
 
 body {
-  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
-  font-weight: 300;
-  background-color: #121212;
+  font-family: Roboto, 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+  background-color: #111111;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: all 0s 50000s;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: #FFF !important;
 }
 
 .container-full {
@@ -29,12 +39,28 @@ img:focus, a:focus {
   outline: none;
 }
 
+.img-cover img {
+  object-fit: cover;
+}
+
 .p-inputtext.ng-invalid.ng-touched {
   border-color: #f44435;
 }
 
 .p-float-label > .ng-invalid.ng-touched + label {
   color: #f44435;
+}
+
+.ratio-9x16 {
+  --bs-aspect-ratio: 150%;
+}
+
+.ng-lazyloaded {
+  transition: filter 0.2s;
+}
+
+.ng-lazyloading {
+  filter: blur(5px);
 }
 
 h1, h2, h3, h4, h5, h6, p, span {

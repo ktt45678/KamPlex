@@ -1,7 +1,10 @@
+$form-bg: #1e1e1e;
+$form-bs-color: #333333;
+
 .form {
   max-width: 500px;
-  background-color: #1e1e1e;
-  box-shadow: 0 0 0 1px #333333;
+  background-color: $form-bg;
+  //box-shadow: 0 0 0 1px $form-bs-color;
   &__group {
     padding: 32px;
   }
@@ -13,7 +16,10 @@
   &__error {
     height: 18px;
     small {
-      font-size: 75%;
+      font-size: 70%;
+      &:not(:first-child) {
+        display: none;
+      }
     }
   }
 }

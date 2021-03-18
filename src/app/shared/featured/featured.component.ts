@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Media } from '../../modules/interfaces/media';
+import { IMedia } from '../../modules/interfaces/media';
 
 @Component({
   selector: 'app-featured',
@@ -8,7 +8,7 @@ import { Media } from '../../modules/interfaces/media';
   styleUrls: ['./featured.component.scss']
 })
 export class FeaturedComponent implements OnInit {
-  @Input() media?: Media;
+  @Input() media?: IMedia;
   @Input() isDetailPage: boolean = false;
   isPlayable: boolean = true;
   seasonPlural = { '=0': 'No season', '=1': '# season', 'other': '# seasons' };

@@ -7,6 +7,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 import { FeaturedModule } from '../../shared/featured/featured.module';
 import { MediaFilterModule } from '../../shared/media-filter/media-filter.module';
+import { MediaListModule } from '../../shared/media-list/media-list.module';
 import { MovieRoutingModule } from './movie-routing.module';
 import { MovieComponent } from './movie.component';
 
@@ -21,7 +22,8 @@ import { MovieComponent } from './movie.component';
     SkeletonModule,
     LazyLoadImageModule,
     FeaturedModule,
-    MediaFilterModule
+    MediaFilterModule,
+    MediaListModule
   ]
 })
 export class MovieModule { }

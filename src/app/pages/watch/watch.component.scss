@@ -1,4 +1,10 @@
-:host ::ng-deep {
+:host {
+  --plyr-color-main: #9fa8da;
+  --plyr-menu-background: rgba(28, 28, 28, 0.9);
+  --plyr-tooltip-background: rgba(28, 28, 28, 0.9);
+}
+
+:host::ng-deep {
   .plyr audio, .plyr iframe, .plyr video {
     display: block;
     width: 100vw;
@@ -50,14 +56,15 @@
   }
 }
 
-.btn__hidden {
-  top: -50px !important;
-  opacity: 0;
-}
-
 .player {
-  &__return, &__select {
+  &__return, &__select, &__controls {
     transition: top 0.3s linear, opacity 0.3s linear;
+  }
+  .hide__controls {
+    &:not(:hover) {
+      top: -50px !important;
+      opacity: 0;
+    }
   }
 }
 
@@ -80,14 +87,16 @@
   &__overview {
     font-size: 16px;
   }
-  &:hover {
-    background-color: rgba($color: #424242, $alpha: 0.92);
-  }
-  &:focus {
-    background-color: rgba($color: #424242, $alpha: 0.76);
-  }
-  &:active {
-    background-color: rgba($color: #424242, $alpha: 0.68);
+  &__link {
+    &:hover {
+      background-color: rgba($color: #424242, $alpha: 0.92);
+    }
+    &:focus {
+      background-color: rgba($color: #424242, $alpha: 0.76);
+    }
+    &:active {
+      background-color: rgba($color: #424242, $alpha: 0.68);
+    }
   }
 }
 

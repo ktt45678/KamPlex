@@ -7,7 +7,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PaginatorModule } from 'primeng/paginator';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { SkeletonModule } from 'primeng/skeleton';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MessageService } from 'primeng/api';
 
@@ -16,6 +15,7 @@ import { HeaderModule } from './shared/header/header.module';
 import { FooterModule } from './shared/footer/footer.module';
 import { FeaturedModule } from './shared/featured/featured.module';
 import { MediaFilterModule } from './shared/media-filter/media-filter.module';
+import { MediaListModule } from './shared/media-list/media-list.module';
 import { ErrorInterceptor } from './modules/interceptors/error.interceptor';
 import { RequestInterceptor } from './modules/interceptors/request.interceptor';
 import { HttpErrorInterceptor } from './modules/interceptors/http-error.interceptor';
@@ -44,12 +44,12 @@ import { AuthenticationService } from './services/authentication.service';
     PaginatorModule,
     MessageModule,
     ToastModule,
-    SkeletonModule,
     LazyLoadImageModule,
     HeaderModule,
     FooterModule,
     FeaturedModule,
-    MediaFilterModule
+    MediaFilterModule,
+    MediaListModule
   ],
   providers: [
     MessageService,

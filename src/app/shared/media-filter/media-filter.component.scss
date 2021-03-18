@@ -1,8 +1,22 @@
-:host ::ng-deep {
+:host::ng-deep {
   .p-dropdown {
     .p-inputtext, .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.25rem 0.5rem 1rem;
       font-size: 0.875rem;
+    }
+  }
+  .p-dropdown-items-wrapper {
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #424242;
+      border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #646464;
+      border-radius: 5px;
     }
   }
 }

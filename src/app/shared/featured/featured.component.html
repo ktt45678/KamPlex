@@ -1,11 +1,11 @@
 <div class="container-fluid container-full">
-  <div class="featured__top">
+  <div class="featured">
     <ng-container *ngIf="media">
-      <div class="featured__top-bg w-100 h-100" *ngIf="media.backdropPath" [lazyLoad]="(media.backdropPath)" [defaultImage]="(media.backdropPath + '&w=64&h=64')"></div>
+      <div class="featured__bg w-100 h-100" *ngIf="media.backdropPath" [lazyLoad]="(media.backdropPath)" [defaultImage]="(media.backdropPath + '&w=64&h=64')"></div>
       <div class="row align-items-center h-100">
         <div class="col-xl-7 col-lg-12 col-md-12">
           <h1>{{media.title || ''}}</h1>
-          <div class="featured__top-badges d-flex align-items-center">
+          <div class="featured__badges d-flex align-items-center">
             <ng-container *ngIf="media.movie">
               <p-badge [value]="(media.movie.releaseDate | date: 'yyyy') || 'Unknown year'"  class="badge__year"></p-badge>
               <p-badge [value]="(media.movie.runtime || 0) + ' min'" class="badge__duration ml-5px"></p-badge>
@@ -15,9 +15,9 @@
               <p-badge [value]="(media.tvShow.seasonCount || 0 | i18nPlural: seasonPlural)" class="badge__season-count ml-5px"></p-badge>
             </ng-container>
           </div>
-          <p class="featured__top-genres mt-10px" *ngIf="media.genres.length">{{media.genres | join: ', '}}</p>
-          <p class="featured__top-overview mt-10px">{{media?.overview || ''}}</p>
-          <div class="featured__top-actions">
+          <p class="featured__genres mt-10px" *ngIf="media.genres.length">{{media.genres | join: ', '}}</p>
+          <p class="featured__overview mt-10px">{{media?.overview || ''}}</p>
+          <div class="featured__actions">
             <button (click)="playMedia()" [disabled]="!isPlayable" pButton icon="pi pi-play" iconPos="left" label="Play" class="btn__play p-button-rounded pl-2r pr-2r"></button>
             <button [routerLink]="['/details', media._id]" *ngIf="!isDetailPage" pButton icon="pi pi-info-circle" label="Details" class="btn__details p-button-rounded pl-2r pr-2r ml-10px"></button>
             <button routerLink="#" disabled="true" *ngIf="isDetailPage" pButton icon="pi pi-plus" label="Playlist" class="btn__details p-button-rounded pl-2r pr-2r ml-10px"></button>

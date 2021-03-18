@@ -1,49 +1,13 @@
 <div class="spinner--center" *ngIf="!(mediaList && featuredShow)">
   <p-progressSpinner></p-progressSpinner>
 </div>
-<section id="home" *ngIf="(mediaList && featuredShow)">
+<section id="movies" *ngIf="(mediaList && featuredShow)">
   <app-featured [media]="featuredShow"></app-featured>
   <div class="container content" id="page">
     <div class="page__content">
       <h3 class="fw-bold">Movies</h3>
       <app-media-filter [selectedGenre]="selectedGenre" [selectedSort]="selectedSort"></app-media-filter>
-      <div class="row">
-        <ng-container *ngIf="pageLoading">
-          <div *ngFor="let item of [].constructor(itemLimit)" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
-            <div class="d-grid m-gap-1">
-              <div class="media__item-thumb ratio">
-                <p-skeleton width="100%" height="100%" borderRadius="2px"></p-skeleton>
-              </div>
-              <div class="d-flex justify-content-between">
-                <p-skeleton width="42px" height="18px"></p-skeleton>
-                <p-skeleton width="64px" height="18px"></p-skeleton>
-              </div>
-              <p-skeleton width="100%" height="20px"></p-skeleton>
-              <p-skeleton width="80%" height="20px"></p-skeleton>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="!pageLoading">
-          <p *ngIf="!mediaList.results.length" class="text-center">No results were found</p>
-          <div *ngFor="let result of mediaList.results; trackBy: trackMedia" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
-            <a [routerLink]="['/details', result._id]">
-              <div class="media__item">
-                <div class="media__item-thumb ratio">
-                  <img *ngIf="result.posterPath" class="br-2px" [lazyLoad]="result.posterPath" [defaultImage]="result.posterPath + '&w=48&h=48'" [alt]="result.title || 'Media poster'">
-                  <img *ngIf="!result.posterPath" class="br-2px" lazyLoad="assets/img/media-poster-md.png" defaultImage="assets/img/media-poster-sm.png" alt="Media poster">
-                </div>
-                <div class="media__item-content">
-                  <div class="media__info d-flex">
-                    <small class="year">{{(result.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
-                    <small class="duration ml-auto">{{result.movie?.runtime || 0}} min</small>
-                  </div>
-                  <p class="media__title">{{result.title || 'Unknown'}}</p>
-                </div>
-              </div>
-            </a>
-          </div>
-        </ng-container>
-      </div>
+      <app-media-list [mediaList]="mediaList" [itemLimit]="itemLimit" [loading]="pageLoading"></app-media-list>
       <p-paginator class="d-flex justify-content-center" [first]="pageFirst" [rows]="itemLimit" [totalRecords]="mediaList.totalResults" (onPageChange)="paginate($event)"></p-paginator>
     </div>
   </div>

@@ -1,14 +1,28 @@
 import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { DestroyService } from 'src/app/services/destroy.service';
+import { MediaService } from 'src/app/services/media.service';
+import { IMediaFetch } from '../../modules/interfaces/media-fetch';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  providers: [MediaService, DestroyService]
 })
 export class HeaderComponent implements OnInit {
   @Input() isDynamicNavbar: boolean = false;
+  searchQuery?: string;
+  searchList?: IMediaFetch;
   isMenuExpanded: boolean = false;
   currentPageYOffset: number = window.pageYOffset;
+  seasonPlural = { '=0': 'No seasons', '=1': '# season', 'other': '# seasons' };
+
+  constructor(private router: Router, private mediaService: MediaService) {}
+
+  ngOnInit(): void {
+  }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -21,10 +35,11 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  onExpandMenu() {
+  onMenuExpand() {
     if (!this.isDynamicNavbar) { return; }
     const element = document.querySelector('.navbar');
-    if (!this.isMenuExpanded) {
+    const navToggler = document.querySelector('.navbar-toggler');
+    if (navToggler?.getAttribute('aria-expanded') === 'true') {
       element!.classList.add('bg-dark');
       this.isMenuExpanded = true;
     } else {
@@ -34,9 +49,17 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  handleSearch(event: any): void {
+    const query = encodeURIComponent(event.query || '');
+    this.mediaService.fetchMedia({ query, limit: 10, page: 1 }).subscribe(data => {
+      this.searchList = data;
+    });
+  }
 
-  ngOnInit(): void {
+  handleSearchKeyUp(event: any): void {
+    if (event.keyCode === 13 && this.searchQuery) {
+      //this.router.navigate(['/search'], { queryParams: { query: this.searchQuery } });
+    }
   }
 
 }

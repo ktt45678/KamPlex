@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
   _id: number;
   username: string;
   email: string;
@@ -10,11 +10,11 @@ export interface User {
   updatedAt: Date;
 }
 
-export interface Storage {
+export interface IStorage {
   uri?: string;
 }
 
-export interface Token {
+export interface IToken {
   accessToken: string;
   refreshToken: string;
 }

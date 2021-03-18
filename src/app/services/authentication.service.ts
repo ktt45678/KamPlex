@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { environment } from '../../environments/environment';
 
-import { User, Token } from '../modules/interfaces/user';
+import { IUser, IToken } from '../modules/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,12 @@ export class AuthenticationService {
 
   private apiUrl: string = environment.apiUrl;
   private refreshTokenTimeout: any;
-  private currentUserSubject: BehaviorSubject<User | null>;
-  public currentUser: Observable<User | null>;
+  private currentUserSubject: BehaviorSubject<IUser | null>;
+  public currentUser: Observable<IUser | null>;
 
   constructor(private http: HttpClient) {
-    const user = this.accessTokenValue ? jwt_decode<User>(this.accessTokenValue) : null;
-    this.currentUserSubject = new BehaviorSubject<User | null>(user);
+    const user = this.accessTokenValue ? jwt_decode<IUser>(this.accessTokenValue) : null;
+    this.currentUserSubject = new BehaviorSubject<IUser | null>(user);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -33,7 +33,7 @@ export class AuthenticationService {
     return refreshToken ? JSON.parse(refreshToken) : null;
   }
 
-  public get currentUserValue(): User | null {
+  public get currentUserValue(): IUser | null {
     if (this.currentUserSubject.value) {
       return this.currentUserSubject.value;
     }
@@ -41,14 +41,14 @@ export class AuthenticationService {
   }
 
   public setCurrentUser() {
-    return this.http.get<User>(`${this.apiUrl}/user`).pipe(map(data => {
+    return this.http.get<IUser>(`${this.apiUrl}/user`).pipe(map(data => {
       this.currentUserSubject.next(data);
       return data;
     }));
   }
 
   login(body: any = {}) {
-    return this.http.post<Token>(`${this.apiUrl}/auth/login`, body).pipe(map(data => {
+    return this.http.post<IToken>(`${this.apiUrl}/auth/login`, body).pipe(map(data => {
       localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
       localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken));
       this.setCurrentUser();
@@ -83,7 +83,7 @@ export class AuthenticationService {
 
   refreshToken() {
     const headers = new HttpHeaders({ Authorization: `Bearer ${this.refreshTokenValue}` });
-    return this.http.post<Token>(`${this.apiUrl}/auth/refreshtoken`, {}, { headers }).pipe(map(data => {
+    return this.http.post<IToken>(`${this.apiUrl}/auth/refreshtoken`, {}, { headers }).pipe(map(data => {
       localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
       localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken));
       this.startRefreshTokenTimer();

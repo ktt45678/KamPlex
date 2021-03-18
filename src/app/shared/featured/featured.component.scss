@@ -1,48 +1,50 @@
 $badge-color: #6c757d;
+$genre-color: #AFAFAF;
 $title-font: 'Source Sans Pro', Arial, sans-serif;
 
-:host ::ng-deep {
-  .featured__top-badges {
+:host::ng-deep {
+  .featured__badges {
     .p-badge {
       background: $badge-color !important;
     }
   }
 }
 
-.featured__top {
+.featured {
   height: 100vh;
   min-height: 100vh;
-  &-bg {
+  &__bg {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    opacity: 0.4;
+    filter: brightness(40%);
     position: absolute;
     z-index: -1;
   }
-  &-genres {
+  &__genres {
     font-size: 14px;
+    color: $genre-color !important;
   }
   .row {
     margin-left: 5%;
     margin-right: 5%;
   }
   h1 {
-    font-size: 42px;
+    font-size: 45px;
     font-weight: 700;
     font-family: $title-font;
   }
 }
 
 @media only screen and (max-width: 767px) {
-  .featured__top {
+  .featured {
     h1 {
       font-size: 38px;
     }
-    &-overview {
+    &__overview {
       display: none;
     }
-    &-actions {
+    &__actions {
       .btn__play, .btn__details {
         margin-top: 0.5em;
         font-size: 22px;
@@ -52,18 +54,18 @@ $title-font: 'Source Sans Pro', Arial, sans-serif;
 }
 
 @media only screen and (max-width: 479px) {
-  .featured__top {
+  .featured {
     h1 {
       text-align: center;
       font-size: 36px;
     }
-    &-badges {
+    &__badges {
       justify-content: center;
     }
-    &-genres {
+    &__genres {
       text-align: center;
     }
-    &-actions {
+    &__actions {
       text-align: center;
       .btn__play, .btn__details {
         margin-left: 0;
@@ -75,11 +77,11 @@ $title-font: 'Source Sans Pro', Arial, sans-serif;
 }
 
 @media only screen and (max-width: 319px) {
-  .featured__top {
+  .featured {
     h1 {
       font-size: 32px;
     }
-    &-actions {
+    &__actions {
       .btn__play, .btn__details {
         font-size: 18px;
       }

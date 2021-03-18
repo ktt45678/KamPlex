@@ -4,20 +4,24 @@
 <section id="details" *ngIf="media">
   <app-featured [media]="media" [isDetailPage]="true"></app-featured>
   <div class="container content">
-    <div class="mb-3" [class.row]="media.tvShow">
+    <div class="mb-4" [class.row]="media.tvShow">
       <div class="detail__info" [class.col-sm-6]="media.tvShow">
-        <h3 class="fw-bold">Information</h3>
-        <div class="detail__info-content">
-          <p class="mb-5px detail__info-overview" *ngIf="media.overview">{{media.overview}}</p>
-          <p class="mb-5px"><span>Genres:</span> {{(media.genres | join: ', ') || 'None'}}</p>
-          <p class="mb-5px" *ngIf="media.movie"><span>Release:</span> {{(media.movie.releaseDate | date: 'mediumDate') || 'Unknown'}}</p>
-          <p class="mb-5px" *ngIf="media.movie"><span>Duration:</span> {{media.movie.runtime || '0'}} min</p>
-          <p class="mb-5px" *ngIf="media.movie"><span>Status:</span> {{media.movie.status || 'None'}}</p>
-          <p class="mb-5px" *ngIf="media.tvShow"><span>Release:</span> {{(media.tvShow.firstAirDate | date: 'mediumDate') || 'Unknown'}} to {{(media.tvShow.lastAirDate | date: 'mediumDate') || 'Unknown'}}</p>
-          <p class="mb-5px" *ngIf="media.tvShow"><span>Seasons:</span> {{media.tvShow.seasonCount || '0'}}</p>
-          <p class="mb-5px" *ngIf="media.tvShow"><span>Duration:</span> {{(media.tvShow.episodeRuntime | join: ', ') || '0'}} min per ep</p>
-          <p class="mb-5px" *ngIf="media.tvShow"><span>Status:</span> {{media.tvShow.status || 'None'}}</p>
-        </div>
+        <h3 class="fw-bold mb-3">Information</h3>
+        <ul class="detail__info-content ps-0">
+          <li class="overview" *ngIf="media.overview">{{media.overview}}</li>
+          <li><p>Genres:</p> {{(media.genres | join: ', ') || 'None'}}</li>
+          <ng-container *ngIf="media.movie">
+            <li><p>Release:</p> {{(media.movie.releaseDate | date: 'mediumDate') || 'Unknown'}}</li>
+            <li><p>Duration:</p> {{media.movie.runtime || '0'}} min</li>
+            <li><p>Status:</p> {{media.movie.status || 'None'}}</li>
+          </ng-container>
+          <ng-container *ngIf="media.tvShow">
+            <li><p>Release:</p> {{(media.tvShow.firstAirDate | date: 'mediumDate') || 'Unknown'}} to {{(media.tvShow.lastAirDate | date: 'mediumDate') || 'Unknown'}}</li>
+            <li><p>Seasons:</p> {{media.tvShow.seasonCount || '0'}}</li>
+            <li><p>Duration:</p> {{(media.tvShow.episodeRuntime | join: ', ') || '0'}} min per ep</li>
+            <li><p>Status:</p> {{media.tvShow.status || 'None'}}</li>
+          </ng-container>
+        </ul>
       </div>
       <div class="detail__tv col-sm-6" *ngIf="media.tvShow">
         <h3 class="fw-bold">Episodes</h3>
@@ -35,38 +39,40 @@
         </div>
       </div>
     </div>
-    <div class="detail__credits my-3">
-      <h3 class="fw-bold">Cast & Crew</h3>
+    <div class="detail__credits my-4">
+      <h3 class="fw-bold mb-3">Cast & Crew</h3>
       <p *ngIf="!media.credits.length">No members available</p>
-      <div class="d-flex flex-row scroll-x">
-        <div *ngFor="let credit of media.credits" class="col-xl-1 col-lg-2 col-md-3 col-sm-4 col-4">
-          <div class="credit__card">
-            <div class="credit__card-image ratio">
-              <img *ngIf="credit.profilePath" class="br-2px" [lazyLoad]="(credit.profilePath)" [defaultImage]="(credit.profilePath + '&w=48&h=48')" [alt]="(credit?.name || 'Profile image')">
-              <img *ngIf="!credit.profilePath" class="br-2px" lazyLoad="assets/img/credit-person-md.png" defaultImage="assets/img/credit-person-sm.png" alt="Profile image">
-            </div>
-            <div class="credit__card-content">
-              <p class="name m-0">{{credit.name}}</p>
-              <p *ngIf="credit.cast" class="character">{{credit.cast.character}}</p>
-              <p *ngIf="credit.crew" class="job">{{credit.crew.job}}</p>
+      <div class="detail__box shadow scroll-x br-2px">
+        <div class="d-flex flex-row">
+          <div *ngFor="let credit of media.credits" class="col-xl-1 col-lg-2 col-md-3 col-sm-4 col-4">
+            <div class="credit__card">
+              <div class="credit__card-image ratio">
+                <img *ngIf="credit.profilePath" class="br-2px" [lazyLoad]="(credit.profilePath)" [defaultImage]="(credit.profilePath + '&w=48&h=48')" [alt]="(credit?.name || 'Profile image')">
+                <img *ngIf="!credit.profilePath" class="br-2px" lazyLoad="assets/img/credit-person-md.png" defaultImage="assets/img/credit-person-sm.png" alt="Profile image">
+              </div>
+              <div class="credit__card-content">
+                <p class="name m-0">{{credit.name}}</p>
+                <p *ngIf="credit.cast" class="character">{{credit.cast.character}}</p>
+                <p *ngIf="credit.crew" class="job">{{credit.crew.job}}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="detail__videos my-3">
-      <h3 class="fw-bold">Videos</h3>
+    <div class="detail__videos my-4">
+      <h3 class="fw-bold mb-3">Videos</h3>
       <p *ngIf="!media.videos.length">No videos available</p>
-      <div class="videos__inner">
-        <p-galleria [value]="media.videos" [(visible)]="displayVideo" [(activeIndex)]="activeVideoIndex" [fullScreen]="true" [showThumbnails]="false" [containerStyle]="{'min-width': '80%', 'min-height': '80%'}" [baseZIndex]="1000">
-          <ng-template pTemplate="item" let-video>
-            <div class="ratio ratio-16x9">
-              <iframe [src]="youtubeUrl + video.key + '?autoplay=1' | safe: 'resourceUrl'" allowfullscreen></iframe>
-            </div>
-          </ng-template>
-        </p-galleria>
-        <div *ngIf="media.videos" class="d-flex flex-row scroll-x">
-          <div *ngFor="let video of media.videos; let index = index;" class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 video__item" key="index">
+      <p-galleria [value]="media.videos" [(visible)]="displayVideo" [(activeIndex)]="activeVideoIndex" [fullScreen]="true" [showThumbnails]="false" [containerStyle]="{'min-width': '80%', 'min-height': '80%'}" [baseZIndex]="1000">
+        <ng-template pTemplate="item" let-video>
+          <div class="ratio ratio-16x9">
+            <iframe [src]="youtubeUrl + video.key + '?autoplay=1' | safe: 'resourceUrl'" allowfullscreen></iframe>
+          </div>
+        </ng-template>
+      </p-galleria>
+      <div class="detail__box shadow scroll-x br-2px">
+        <div *ngIf="media.videos" class="d-flex flex-row">
+          <div *ngFor="let video of media.videos; let index = index;" class="video__item col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" key="index">
             <div class="ratio ratio-16x9">
               <img [src]="youtubeThumbnailUrl + video.key + '/hqdefault.jpg'" [alt]="video.title || ''" class="video__image br-2px" (click)="viewVideo(index)"/>
             </div>

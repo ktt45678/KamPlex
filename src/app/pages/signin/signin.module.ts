@@ -5,6 +5,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 
 import { SigninRoutingModule } from './signin-routing.module';
+import { AutofocusModule } from '../../modules/directives/autofocus/autofocus.module';
 import { SigninComponent } from './signin.component';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SigninComponent } from './signin.component';
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    AutofocusModule
   ]
 })
 export class SigninModule { }

@@ -1,4 +1,4 @@
-export interface Media {
+export interface IMedia {
   _id: number;
   imdbId?: string;
   tmdbId?: number;
@@ -8,10 +8,10 @@ export interface Media {
   overview?: string;
   posterPath?: string;
   backdropPath?: string;
-  movie?: Movie;
-  tvShow?: TVShow;
-  videos: Video[];
-  credits: Credit[];
+  movie?: IMovie;
+  tvShow?: ITVShow;
+  videos: IVideo[];
+  credits: ICredit[];
   genres: string[];
   popularity?: number;
   isPublic: number;
@@ -21,23 +21,23 @@ export interface Media {
   updatedAt: string;
 }
 
-export interface Movie {
+export interface IMovie {
   runtime?: number;
   releaseDate?: string;
   status?: string;
   adult?: boolean;
 }
 
-export interface TVShow {
+export interface ITVShow {
   episodeRuntime?: number[];
   firstAirDate?: string;
   lastAirDate?: string;
   status?: string;
   seasonCount?: number;
-  seasons: Season[];
+  seasons: ISeason[];
 }
 
-export interface Season {
+export interface ISeason {
   airDate?: string;
   seasonNumber?: number;
   episodeCount?: number;
@@ -46,10 +46,10 @@ export interface Season {
   posterPath?: string;
   isPublic: boolean;
   isAdded: boolean;
-  episodes: Episode[];
+  episodes: IEpisode[];
 }
 
-export interface Episode {
+export interface IEpisode {
   episodeNumber?: number;
   runtime?: number;
   name?: string;
@@ -60,7 +60,7 @@ export interface Episode {
   isAdded: boolean;
 }
 
-export interface Video {
+export interface IVideo {
   _id: number;
   title?: string;
   site: string;
@@ -68,20 +68,20 @@ export interface Video {
   type: string;
 }
 
-export interface Credit {
+export interface ICredit {
   tmdbId: string;
   name?: string;
   originalName?: string;
   profilePath?: string;
   department?: string;
-  crew?: Crew;
-  cast?: Cast;
+  crew?: ICrew;
+  cast?: ICast;
 }
 
-export interface Crew {
+export interface ICrew {
   job?: string;
 }
 
-export interface Cast {
+export interface ICast {
   character?: string;
 }

@@ -6,8 +6,8 @@ import { map, takeUntil } from 'rxjs/operators';
 
 import { MediaService } from '../../services/media.service';
 import { DestroyService } from 'src/app/services/destroy.service';
-import { Media, Episode } from '../../modules/interfaces/media';
-import { MediaStream } from '../../modules/interfaces/media-stream';
+import { IMedia, IEpisode } from '../../modules/interfaces/media';
+import { IMediaStream } from '../../modules/interfaces/media-stream';
 
 @Component({
   selector: 'app-watch',
@@ -19,12 +19,11 @@ export class WatchComponent implements OnInit {
   isPlayable: boolean = false;
   displaySidebar: boolean = false;
   showControls: boolean = false;
-  timeout!: any;
   mediaId!: number;
   season!: number;
   episode!: number;
-  media!: Media;
-  currentEpisode?: Episode;
+  media!: IMedia;
+  currentEpisode?: IEpisode;
   videoSources: Plyr.Source[] = [];
   videoOptions: Plyr.Options = {
     controls: ['play-large', 'play', 'rewind', 'fast-forward', 'progress', 'current-time', 'duration', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
@@ -68,11 +67,11 @@ export class WatchComponent implements OnInit {
   nextEpisode(): void {
     const qparams = this.mediaService.findNextEpisode(this.media, this.season, this.episode);
     if (qparams) {
-      this.router.navigate([], { relativeTo: this.route, queryParams: qparams, queryParamsHandling: 'merge' });
+      this.router.navigate([], { queryParams: qparams, queryParamsHandling: 'merge' });
     }
   }
 
-  loadVideos(source: MediaStream[]): void {
+  loadVideos(source: IMediaStream[]): void {
     this.videoSources = [];
     let i = source.length;
     while (i--) {
@@ -83,19 +82,6 @@ export class WatchComponent implements OnInit {
         provider: 'html5'
       });
     }
-  }
-
-  handleTouchStart(): void {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-    this.showControls = true;
-  }
-
-  handleTouchEnd(): void {
-    this.timeout = setTimeout(() => {
-      this.showControls = false;
-    }, 3000);
   }
 
   back(): void {

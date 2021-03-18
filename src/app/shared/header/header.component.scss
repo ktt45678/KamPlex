@@ -1,3 +1,9 @@
+$header-color: rgba(255, 255, 255, 0.8);
+$title-font: 'Source Sans Pro', Arial, sans-serif;
+$text-secondary-color: #AFAFAF;
+$search-width: 40.8px;
+$search-max-width: 275px;
+
 .navbar-hidden {
   top: -80px;
   opacity: 0;
@@ -14,33 +20,153 @@
   }
   .nav-item {
     .nav-link {
-      color: #d1d0cf;
-      &:hover {
-        color: #b3b3b3;
+      color: $header-color;
+      font-weight: 400;
+      position: relative;
+      &:after {
+        content: '';
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        opacity: 0;
+        height: 2px;
+        position: absolute;
+        background-color: $header-color;
+        transition: width 0.2s ease 0s, left 0.2s ease 0s, opacity 0.2s ease 0s;
       }
-    }
-    .dropdown-menu {
-      background-color: #141414;
-      .dropdown-item {
-        color: #d1d0cf;
-        &:hover {
-          background-color: transparent;
-          color: #b3b3b3;
-        }
+      &:hover:after, &:focus:after {
+        width: 100%;
+        left: 0;
+        opacity: 1;
       }
     }
   }
   .navbar-toggler {
     .navbar-toggler-icon {
-      color: #ffffff;
+      color: $header-color;
     }
   }
 }
 
-:host ::ng-deep {
-  .input__search {
-    input[type=text] {
+:host::ng-deep {
+  .navbar-hidden {
+    .search__results {
+      display: none;
+    }
+  }
+  .nav__search {
+    background-color: transparent;
+    border: 1px solid $header-color;
+    box-shadow: 0 0 0 1px $header-color;
+    border-radius: 100vh;
+    width: $search-width;
+    transition: all 0.2s ease-out;
+    .search__input {
+      width: calc(100% - 30px);
+      background-color: transparent;
+      border: none;
+      padding: 11px 11px 11px 46px;
+      cursor: pointer;
+    }
+    .search__icon {
+      left: 0.745rem;
+      transition: left 0.2s;
+      pointer-events: none;
+    }
+    .search__results {
+      .p-autocomplete-items {
+        .p-autocomplete-item {
+          padding: 0;
+          white-space: normal;
+        }
+      }
+    }
+    &:focus-within {
       background-color: rgba($color: #1e1e1e, $alpha: 0.4);
+      border-color: transparent;
+      box-shadow: 0 0 0 2px #9FA8DA;
+      width: $search-max-width;
+      .search__input {
+        cursor: initial;
+      }
+      .search__icon {
+        left: 1rem;
+      }
+      .search__results {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+  .search__results {
+    width: $search-max-width;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s;
+    overflow-y: auto;
+    .result {
+      height: 100px;
+      transition: background-color 0.2s;
+      overflow: hidden;
+      padding: 5px;
+      background-color: #1c1c1c;
+      &__image {
+        object-fit: cover;
+        max-width: 60px;
+      }
+      &__content {
+        color: #FFF;
+        .title {
+          font-family: $title-font;
+          font-weight: 600;
+          font-size: 15px;
+          margin-bottom: 2px;
+        }
+        .year, .duration, .seasons {
+          color: $text-secondary-color;
+          font-size: 13px;
+        }
+      }
+      &:hover, &:focus {
+        background-color: #242424;
+      }
+    }
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #424242;
+      border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #646464;
+      border-radius: 5px;
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .nav-link {
+      display: inline-block;
+    }
+    .nav__search {
+      background-color: rgba($color: #1e1e1e, $alpha: 0.4);
+      width: 100%;
+      margin-bottom: 0.45rem;
+      .search__input {
+        cursor: initial;
+      }
+      .search__icon {
+        left: 1rem;
+      }
+      &:focus-within {
+        border-color: #9FA8DA;
+        width: 100%;
+      }
+      .search__results {
+        width: 100%;
+      }
     }
   }
 }

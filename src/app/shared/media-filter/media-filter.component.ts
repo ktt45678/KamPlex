@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class MediaFilterComponent implements OnInit {
   @Input() selectedGenre?: string;
   @Input() selectedSort?: string;
+  @Input() selectedView?: number;
+  @Output() newViewMode = new EventEmitter<number>();
   sortOptions = [
     { label: 'Latest', value: 'createdAt:-1' },
     { label: 'Oldest', value: 'createdAt:1' },
@@ -35,18 +37,26 @@ export class MediaFilterComponent implements OnInit {
     { label: 'Romance', value: 'Romance' },
     { label: 'War', value: 'War' }
   ];
+  viewOptions = [
+    { label: 'Default', value: 2 },
+    { label: 'Details', value: 1 }
+  ];
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   filterBy(event: any): void {
-    this.router.navigate([], { relativeTo: this.route, queryParams: { genre: event.value }, queryParamsHandling: 'merge', fragment: 'page' });
+    this.router.navigate([], { queryParams: { genre: event.value }, queryParamsHandling: 'merge', fragment: 'page' });
   }
 
   sortBy(event: any): void {
-    this.router.navigate([], { relativeTo: this.route, queryParams: { sort: event.value }, queryParamsHandling: 'merge', fragment: 'page' });
+    this.router.navigate([], { queryParams: { sort: event.value }, queryParamsHandling: 'merge', fragment: 'page' });
+  }
+
+  changeView(event: any): void {
+    this.newViewMode.emit(event.value);
   }
 
 }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { MediaFetch } from '../modules/interfaces/media-fetch';
-import { MediaStream } from '../modules/interfaces/media-stream';
-import { Media } from '../modules/interfaces/media';
+import { IMediaFetch } from '../modules/interfaces/media-fetch';
+import { IMediaStream } from '../modules/interfaces/media-stream';
+import { IMedia } from '../modules/interfaces/media';
 
 @Injectable()
 export class MediaService {
@@ -13,22 +13,22 @@ export class MediaService {
   private apiUrl: string = environment.apiUrl;
 
   fetchMedia(params: any = {}) {
-    return this.http.get<MediaFetch>(`${this.apiUrl}/media/fetch`, { params });
+    return this.http.get<IMediaFetch>(`${this.apiUrl}/media/fetch`, { params });
   }
 
   getLatestMedia(params: any = {}) {
-    return this.http.get<Media>(`${this.apiUrl}/media/latest`, { params });
+    return this.http.get<IMedia>(`${this.apiUrl}/media/latest`, { params });
   }
 
   getMediaDetails(id: number, params: any = {}) {
-    return this.http.get<Media>(`${this.apiUrl}/media/details/${id}`, { params });
+    return this.http.get<IMedia>(`${this.apiUrl}/media/details/${id}`, { params });
   }
 
   getStreamUrls(id: number, params: any = {}) {
-    return this.http.get<MediaStream[]>(`${this.apiUrl}/media/stream/${id}`, { params });
+    return this.http.get<IMediaStream[]>(`${this.apiUrl}/media/stream/${id}`, { params });
   }
 
-  findNextEpisode(media: Media, currentSeason: number, currentEpisode: number): any {
+  findNextEpisode(media: IMedia, currentSeason: number, currentEpisode: number): any {
     if (media && media.tvShow) {
       const seasonIndex = media.tvShow.seasons.findIndex(s => s.seasonNumber === currentSeason);
       if (seasonIndex > -1) {

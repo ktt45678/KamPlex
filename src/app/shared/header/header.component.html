@@ -1,10 +1,10 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark" [ngClass]="{'fixed-top': isDynamicNavbar, 'bg-dark': !isDynamicNavbar}">
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="#">
-        <img src="assets/img/logo-text.png" alt="">
+      <a class="navbar-brand" routerLink="/">
+        <img src="assets/img/logo-text.png" alt="KamPlex">
       </a>
-      <button class="navbar-toggler" (click)="onExpandMenu()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" (click)="onMenuExpand()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarContent">
@@ -19,12 +19,37 @@
             <a class="nav-link" routerLink="/movie">Movies</a>
           </li>
         </ul>
-        <div class="input__search d-flex">
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input type="text" pInputText class="p-inputtext-sm h-100" placeholder="Search">
+        <div class="nav__search me-3">
+          <span class="p-input-icon-left w-100">
+            <i class="pi pi-search search__icon"></i>
+            <p-autoComplete [(ngModel)]="searchQuery" [suggestions]="searchList?.results || []" (completeMethod)="handleSearch($event)" (onKeyUp)="handleSearchKeyUp($event)" field="title" placeholder="Search" styleClass="w-100 h-100" inputStyleClass="p-inputtext-sm search__input h-100" panelStyleClass="search__results" scrollHeight="50vh" ariaLabel="Search">
+              <ng-template let-result pTemplate="item">
+                <a class="result d-flex" [routerLink]="['/details', result._id]">
+                  <div class="result__image ratio ratio-9x16">
+                    <img *ngIf="result.posterPath" class="br-2px" [src]="result.posterPath + '&w=192&h=192'"  [alt]="result.title || 'Media poster'" loading="lazy">
+                    <img *ngIf="!result.posterPath" class="br-2px" src="assets/img/media-poster-md.png" alt="Media poster" loading="lazy">
+                  </div>
+                  <div class="result__content w-100 ms-2 me-2">
+                    <p class="title">{{result.title || 'Unknown'}}</p>
+                    <div class="d-flex">
+                      <small class="year">{{(result.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
+                      <small *ngIf="result.movie" class="duration ml-auto">{{result.movie.runtime || 0}} min</small>
+                      <small *ngIf="result.tvShow" class="seasons ml-auto">{{result.tvShow.seasonCount || 0 | i18nPlural: seasonPlural}}</small>
+                    </div>
+                  </div>
+                </a>
+              </ng-template>
+            </p-autoComplete>
           </span>
         </div>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/signin">Sign In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/">Sign Up</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

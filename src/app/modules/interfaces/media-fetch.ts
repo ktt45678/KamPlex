@@ -1,8 +1,8 @@
-import { Media } from './media';
+import { IMedia } from './media';
 
-export interface MediaFetch {
+export interface IMediaFetch {
   page: number;
   totalPages: number;
   totalResults: number;
-  results: Media[];
+  results: IMedia[];
 }

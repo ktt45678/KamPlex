@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { MediaService } from '../../services/media.service';
-import { Media } from '../../modules/interfaces/media';
+import { IMedia } from '../../modules/interfaces/media';
 
 @Component({
   selector: 'app-details',
@@ -13,7 +13,7 @@ import { Media } from '../../modules/interfaces/media';
 })
 export class DetailsComponent implements OnInit {
   mediaId!: number;
-  media!: Media;
+  media!: IMedia | null;
   displayVideo: boolean = false;
   activeVideoIndex: number = 0;
   youtubeUrl = 'https://www.youtube.com/embed/';
@@ -24,6 +24,13 @@ export class DetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private mediaService: MediaService) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(() => {
+      this.loadMedia();
+    });
+  }
+
+  loadMedia(): void {
+    this.media = null;
     this.mediaId = Number(this.route.snapshot.paramMap.get('id'));
     this.mediaService.getMediaDetails(this.mediaId).pipe(map(data => {
       data.videos = data.videos.filter(v => v.site.toLowerCase() === 'youtube');
