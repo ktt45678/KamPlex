@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   pageFirst: number = 0;
   selectedGenre?: string;
   selectedSort?: string;
-  selectedView?: number;
+  selectedView: number = 0;
 
   constructor(private route: ActivatedRoute, private router: Router, private mediaService: MediaService) { }
 
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     });
     this.route.queryParams.subscribe(p => {
       this.selectedGenre = p.genre || undefined;
-      this.selectedSort = p.sort || 'createdAt:-1';
+      this.selectedSort = p.sort || '<createdAt';
       this.loadPage(Number(p.page) || 1);
     });
   }

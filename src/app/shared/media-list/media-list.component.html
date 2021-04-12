@@ -1,45 +1,47 @@
 <ng-container [ngSwitch]="viewMode">
-  <div *ngSwitchDefault class="row">
-    <ng-container *ngIf="loading">
-      <div *ngFor="let item of [].constructor(itemLimit)" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
-        <div class="d-grid m-gap-1">
-          <div class="media__thumb ratio ratio-9x16">
-            <p-skeleton width="100%" height="100%" borderRadius="2px"></p-skeleton>
+  <div *ngSwitchDefault class="view--default">
+    <div class="row">
+      <ng-container *ngIf="loading">
+        <div *ngFor="let item of [].constructor(itemLimit)" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
+          <div class="d-grid m-gap-1">
+            <div class="media__thumb ratio ratio-9x16">
+              <p-skeleton width="100%" height="100%" borderRadius="2px"></p-skeleton>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p-skeleton width="42px" height="18px"></p-skeleton>
+              <p-skeleton width="64px" height="18px"></p-skeleton>
+            </div>
+            <p-skeleton width="100%" height="20px"></p-skeleton>
+            <p-skeleton width="80%" height="20px"></p-skeleton>
           </div>
-          <div class="d-flex justify-content-between">
-            <p-skeleton width="42px" height="18px"></p-skeleton>
-            <p-skeleton width="64px" height="18px"></p-skeleton>
-          </div>
-          <p-skeleton width="100%" height="20px"></p-skeleton>
-          <p-skeleton width="80%" height="20px"></p-skeleton>
         </div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="!loading">
-      <p *ngIf="!mediaList.results.length" class="text-center">No results were found</p>
-      <div *ngFor="let result of mediaList.results; trackBy: trackMedia" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
-        <a [routerLink]="['/details', result._id]">
-          <div class="media">
-            <div class="media__thumb img-cover ratio ratio-9x16">
-              <img *ngIf="result.posterPath" class="br-2px" [lazyLoad]="result.posterPath" [defaultImage]="result.posterPath + '&w=48&h=48'" [alt]="result.title || 'Media poster'">
-              <img *ngIf="!result.posterPath" class="br-2px" lazyLoad="assets/img/media-poster-md.png" defaultImage="assets/img/media-poster-sm.png" alt="Media poster">
-            </div>
-            <div class="media__content">
-              <div class="media__info d-flex">
-                <small class="year">{{(result.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
-                <small *ngIf="result.movie" class="duration ml-auto">{{result.movie.runtime || 0}} min</small>
-                <small *ngIf="result.tvShow" class="seasons ml-auto">{{result.tvShow.seasonCount || 0 | i18nPlural: seasonPlural}}</small>
+      </ng-container>
+      <ng-container *ngIf="!loading">
+        <p *ngIf="!mediaList.results.length" class="text-center">No results were found</p>
+        <div *ngFor="let result of mediaList.results; trackBy: trackMedia" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
+          <a [routerLink]="['/details', result._id]">
+            <div class="media">
+              <div class="media__thumb img-cover ratio ratio-9x16">
+                <img *ngIf="result.posterPath" class="br-2px" [lazyLoad]="result.posterPath" [defaultImage]="result.posterPath + '&w=48&h=48'" [alt]="result.title || 'Media poster'">
+                <img *ngIf="!result.posterPath" class="br-2px" lazyLoad="assets/img/media-poster-md.png" defaultImage="assets/img/media-poster-sm.png" alt="Media poster">
               </div>
-              <p class="media__title">{{result.title || 'Unknown'}}</p>
+              <div class="media__content">
+                <div class="media__info d-flex">
+                  <small class="year">{{(result.releaseDate | date: 'yyyy') || 'Unknown year'}}</small>
+                  <small *ngIf="result.movie" class="duration ml-auto">{{result.movie.runtime || 0}} min</small>
+                  <small *ngIf="result.tvShow" class="seasons ml-auto">{{result.tvShow.seasonCount || 0 | i18nPlural: seasonPlural}}</small>
+                </div>
+                <p class="media__title">{{result.title || 'Unknown'}}</p>
+              </div>
             </div>
-          </div>
-        </a>
-      </div>
-    </ng-container>
+          </a>
+        </div>
+      </ng-container>
+    </div>
   </div>
   <div *ngSwitchCase="1" class="list mb-3">
     <p *ngIf="!mediaList.results.length" class="text-center">No results were found</p>
-    <ul>
+    <ul class="p-0">
       <ng-container *ngIf="loading">
         <li *ngFor="let item of [].constructor(itemLimit)">
           <div class="media">
@@ -50,21 +52,54 @@
       <ng-container *ngIf="!loading">
         <li *ngFor="let result of mediaList.results; trackBy: trackMedia">
           <a [routerLink]="['/details', result._id]">
-            <div class="media d-flex position-relative">
+            <div class="media view--details d-flex position-relative br-2px">
               <div *ngIf="result.backdropPath" class="media__background position-absolute top-0 bottom-0 start-0 end-0 br-2px" [lazyLoad]="result.backdropPath + '&w=305&h=80&fit=cover&a=attention'"></div>
               <div *ngIf="!result.backdropPath" class="media__background position-absolute top-0 bottom-0 start-0 end-0 br-2px"></div>
               <div class="media__thumb img-cover ratio ratio-9x16">
                 <img *ngIf="result.posterPath" class="br-2px" [lazyLoad]="result.posterPath" [defaultImage]="result.posterPath + '&w=48&h=48'" [alt]="result.title || 'Media poster'">
                 <img *ngIf="!result.posterPath" class="br-2px" lazyLoad="assets/img/media-poster-md.png" defaultImage="assets/img/media-poster-sm.png" alt="Media poster">
               </div>
-              <div class="media__content ms-3 me-3">
+              <div class="media__content mx-3 my-2">
                 <p class="media__title mb-1">{{result.title || 'Unknown'}} <span>({{(result.releaseDate | date: 'yyyy') || 'Unknown year'}})</span></p>
                 <div class="media__info mb-1">
                   <p class="genres" *ngIf="result.genres.length">{{result.genres.length > 4 ? (result.genres.slice(0, 4) | join: ', ') + '...' : (result.genres | join: ', ')}}</p>
                   <p *ngIf="result.movie" class="duration">{{result.movie.runtime || 0}} min</p>
                   <p *ngIf="result.tvShow" class="seasons">{{result.tvShow.seasonCount || 0 | i18nPlural: seasonPlural}}</p>
                 </div>
-                <p class="media__overview">{{result.overview || 'Nothing'}}</p>
+                <p *ngIf="result.overview" class="media__overview scroll-y">{{result.overview}}</p>
+                <p *ngIf="!result.overview" class="media__overview scroll-y"><i>No description</i></p>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div *ngSwitchCase="2" class="list mb-3">
+    <p *ngIf="!mediaList.results.length" class="text-center">No results were found</p>
+    <ul class="row p-0">
+      <ng-container *ngIf="loading">
+        <li *ngFor="let item of [].constructor(itemLimit)">
+          <div class="media">
+            <p-skeleton width="100%" height="100%" borderRadius="2px"></p-skeleton>
+          </div>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="!loading">
+        <li *ngFor="let result of mediaList.results; trackBy: trackMedia" class="col-12 col-md-6">
+          <a [routerLink]="['/details', result._id]">
+            <div class="media view--simple d-flex br-2px">
+              <div class="media__thumb--mini img-cover ratio ratio-9x16">
+                <img *ngIf="result.posterPath" class="br-2px" [lazyLoad]="result.posterPath" [defaultImage]="result.posterPath + '&w=48&h=48'" [alt]="result.title || 'Media poster'">
+                <img *ngIf="!result.posterPath" class="br-2px" lazyLoad="assets/img/media-poster-md.png" defaultImage="assets/img/media-poster-sm.png" alt="Media poster">
+              </div>
+              <div class="media__content mx-3 my-2">
+                <p class="media__title mb-1">{{result.title || 'Unknown'}} <span>({{(result.releaseDate | date: 'yyyy') || 'Unknown year'}})</span></p>
+                <div class="media__info mb-1">
+                  <p class="genres" *ngIf="result.genres.length">{{result.genres.length > 3 ? (result.genres.slice(0, 3) | join: ', ') + '...' : (result.genres | join: ', ')}}</p>
+                  <p *ngIf="result.movie" class="duration">{{result.movie.runtime || 0}} min</p>
+                  <p *ngIf="result.tvShow" class="seasons">{{result.tvShow.seasonCount || 0 | i18nPlural: seasonPlural}}</p>
+                </div>
               </div>
             </div>
           </a>

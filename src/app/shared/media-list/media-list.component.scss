@@ -9,14 +9,32 @@ $text-secondary-color: #AFAFAF;
 .list {
   ul {
     list-style-type: none;
-    padding: 0;
     li {
+      @include mt-mb-d5r;
       .media {
-        height: 294px;
         overflow: hidden;
-        &:hover .media__background {
-          filter: brightness(45%) blur(5px);
-          background-color: #424242;
+        &.view--details {
+          height: 294px;
+        }
+        &.view--simple {
+          height: 140px;
+          background-color: #212121;
+          transition: background-color 0.2s;
+          &:hover {
+            background-color: #424242;
+          }
+          .media__title {
+            font-size: 20px;
+          }
+          .media__info p {
+            font-size: 15px;
+          }
+        }
+        &:hover {
+          .media__background {
+            filter: brightness(45%) blur(5px);
+            background-color: #424242;
+          }
         }
         &__background {
           background-color: #212121;
@@ -33,6 +51,10 @@ $text-secondary-color: #AFAFAF;
           max-width: 196px;
           flex: 1 0 auto;
         }
+        &__thumb--mini {
+          max-width: 96px;
+          flex: 1 0 auto;
+        }
         &__title {
           font-family: $title-font;
           font-size: 28px;
@@ -42,8 +64,8 @@ $text-secondary-color: #AFAFAF;
           }
         }
         &__overview {
-          max-height: 55%;
-          overflow-y: auto;
+          line-height: 1.4em;
+          max-height: 7em;
         }
         &__info p {
           color: $text-secondary-color !important;
@@ -53,41 +75,40 @@ $text-secondary-color: #AFAFAF;
           }
         }
       }
-      &:not(:first-child) {
-        margin-top: 10px;
+    }
+  }
+}
+
+.view--default {
+  .row {
+    .col-6 {
+      @include mt-mb-d5r;
+      .media {
+        transition: opacity 0.2s;
+        &:hover {
+          opacity: 0.7;
+        }
+        &__info small {
+          color: $text-secondary-color;
+        }
+        &__title {
+          font-family: $title-font;
+          font-size: 16px;
+          font-weight: 600;
+        }
       }
     }
   }
 }
 
-.row {
-  .col-6 {
-    @include mt-mb-d5r;
-    .media {
-      transition: opacity 0.2s;
-      &:hover, &:focus {
-        opacity: 0.7;
-      }
-      &__info small {
-        color: $text-secondary-color;
-      }
-      &__title {
-        font-family: $title-font;
-        font-size: 16px;
-        font-weight: 600;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
   .list {
     .media {
       &__title {
-        font-size: 20px !important;
+        font-size: 18.5px !important;
       }
       &__info p {
-        font-size: 16px;
+        font-size: 14px !important;
       }
       &__overview {
         font-size: 14px;
@@ -100,7 +121,9 @@ $text-secondary-color: #AFAFAF;
 @media only screen and (max-width: 479px) {
   .list {
     .media {
-      height: 204px !important;
+      &.view--details {
+        height: 204px !important;
+      }
       &__thumb {
         max-width: 136px !important;
       }
@@ -115,14 +138,16 @@ $text-secondary-color: #AFAFAF;
       }
     }
   }
-  .row {
-    .col-6 {
-      .media {
-        &__info small {
-          font-size: 0.775em;
-        }
-        &__title {
-          font-size: 15px;
+  .view--default {
+    .row {
+      .col-6 {
+        .media {
+          &__info small {
+            font-size: 0.775em;
+          }
+          &__title {
+            font-size: 15px;
+          }
         }
       }
     }
@@ -132,7 +157,9 @@ $text-secondary-color: #AFAFAF;
 @media only screen and (max-width: 319px) {
   .list {
     .media {
-      height: 168px !important;
+      &.view--details {
+        height: 168px !important;
+      }
       &__thumb {
         max-width: 100px !important;
       }
@@ -144,14 +171,16 @@ $text-secondary-color: #AFAFAF;
       }
     }
   }
-  .row {
-    .col-6 {
-      .media {
-        &__info small {
-          font-size: 0.675em;
-        }
-        &__title {
-          font-size: 14px;
+  .view--default {
+    .row {
+      .col-6 {
+        .media {
+          &__info small {
+            font-size: 0.675em;
+          }
+          &__title {
+            font-size: 14px;
+          }
         }
       }
     }

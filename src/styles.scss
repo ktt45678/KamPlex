@@ -63,6 +63,46 @@ img:focus, a:focus {
   filter: blur(5px);
 }
 
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 7px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 7px;
+  }
+}
+
+@mixin scrollbar-visible {
+  &::-webkit-scrollbar-track {
+    background-color: rgba($color: #424242, $alpha: 0.6);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($color: #646464, $alpha: 0.6);
+  }
+}
+
+.scroll-x {
+  overflow-x: auto;
+  @include scrollbar;
+  &:hover {
+    @include scrollbar-visible;
+  }
+}
+
+.scroll-y {
+  overflow-y: auto;
+  @include scrollbar;
+  &:hover {
+    @include scrollbar-visible;
+  }
+}
+
 h1, h2, h3, h4, h5, h6, p, span {
   color: white !important;
 }
@@ -81,6 +121,10 @@ a {
 
 .br-5px {
   border-radius: 5px;
+}
+
+.br-100vh {
+  border-radius: 100vh;
 }
 
 .pl-2r {
@@ -145,14 +189,14 @@ a {
 
 .m-gap-2 > * {
   margin-bottom: .5rem;
-  &:not(:last-child) {
-    margin-right: .5rem;
+  &:not(:first-child) {
+    margin-left: .5rem;
   }
 }
 
 .m-gap-1 > * {
   margin-bottom: .25rem;
-  &:not(:last-child) {
-    margin-right: .25rem;
+  &:not(:first-child) {
+    margin-left: .25rem;
   }
 }

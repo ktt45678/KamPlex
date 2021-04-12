@@ -6,8 +6,8 @@
   <div class="container content" id="page">
     <div class="page__content">
       <h3 class="fw-bold">TV Shows</h3>
-      <app-media-filter [selectedGenre]="selectedGenre" [selectedSort]="selectedSort"></app-media-filter>
-      <app-media-list [mediaList]="mediaList" [itemLimit]="itemLimit" [loading]="pageLoading"></app-media-list>
+      <app-media-filter [selectedGenre]="selectedGenre" [selectedSort]="selectedSort" [selectedView]="selectedView" (newViewMode)="selectedView = $event"></app-media-filter>
+      <app-media-list [mediaList]="mediaList" [itemLimit]="itemLimit" [viewMode]="selectedView" [loading]="pageLoading"></app-media-list>
       <p-paginator class="d-flex justify-content-center" [first]="pageFirst" [rows]="itemLimit" [totalRecords]="mediaList.totalResults" (onPageChange)="paginate($event)"></p-paginator>
     </div>
   </div>

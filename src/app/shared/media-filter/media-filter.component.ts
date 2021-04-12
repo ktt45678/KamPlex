@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-media-filter',
@@ -12,12 +12,12 @@ export class MediaFilterComponent implements OnInit {
   @Input() selectedView?: number;
   @Output() newViewMode = new EventEmitter<number>();
   sortOptions = [
-    { label: 'Latest', value: 'createdAt:-1' },
-    { label: 'Oldest', value: 'createdAt:1' },
-    { label: 'Date (Ascending)', value: 'releaseDate:1' },
-    { label: 'Date (Descending)', value: 'releaseDate:-1' },
-    { label: 'Title (A-Z)', value: 'title:1' },
-    { label: 'Title (Z-A)', value: 'title:-1' }
+    { label: 'Latest', value: '<createdAt' },
+    { label: 'Oldest', value: '>createdAt' },
+    { label: 'Date (Ascending)', value: '>releaseDate' },
+    { label: 'Date (Descending)', value: '<releaseDate' },
+    { label: 'Title (Ascending)', value: '>title' },
+    { label: 'Title (Descending)', value: '<title' }
   ];
   genreOptions = [
     { label: 'All', value: null },
@@ -38,8 +38,9 @@ export class MediaFilterComponent implements OnInit {
     { label: 'War', value: 'War' }
   ];
   viewOptions = [
-    { label: 'Default', value: 2 },
-    { label: 'Details', value: 1 }
+    { label: 'Default', value: 0 },
+    { label: 'Details', value: 1 },
+    { label: 'Simple', value: 2 }
   ];
 
   constructor(private router: Router) { }
@@ -55,8 +56,9 @@ export class MediaFilterComponent implements OnInit {
     this.router.navigate([], { queryParams: { sort: event.value }, queryParamsHandling: 'merge', fragment: 'page' });
   }
 
-  changeView(event: any): void {
-    this.newViewMode.emit(event.value);
+  changeView(value: number): void {
+    if (this.selectedView !== value)
+      this.newViewMode.emit(value);
   }
 
 }

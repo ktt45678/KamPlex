@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
 
 import { MediaFilterComponent } from './media-filter.component';
 
@@ -11,7 +12,8 @@ import { MediaFilterComponent } from './media-filter.component';
   imports: [
     CommonModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    ButtonModule
   ],
   exports: [MediaFilterComponent]
 })

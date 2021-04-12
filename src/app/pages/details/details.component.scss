@@ -2,26 +2,6 @@ $badge-color: #6c757d;
 $title-font: 'Source Sans Pro', Arial, sans-serif;
 $text-secondary-color: #AFAFAF;
 
-@mixin mt-mb-5px {
-  margin-top: 24px !important;
-  margin-bottom: 24px !important;
-}
-
-.scroll-x {
-  overflow-x: auto;
-  &::-webkit-scrollbar {
-    height: 5px;
-  }
-  &::-webkit-scrollbar-track {
-    background: #424242;
-    border-radius: 5px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #646464;
-    border-radius: 5px;
-  }
-}
-
 .detail__info {
   &-content {
     list-style-type: none;

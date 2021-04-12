@@ -19,6 +19,7 @@ export class TvComponent implements OnInit {
   pageFirst: number = 0;
   selectedGenre?: string;
   selectedSort?: string;
+  selectedView: number = 0;
   seasonPlural = { '=0': 'No seasons', '=1': '# season', 'other': '# seasons' };
 
   constructor(private route: ActivatedRoute, private router: Router, private mediaService: MediaService) { }
@@ -29,7 +30,7 @@ export class TvComponent implements OnInit {
     });
     this.route.queryParams.subscribe(p => {
       this.selectedGenre = p.genre || undefined;
-      this.selectedSort = p.sort || 'createdAt:-1';
+      this.selectedSort = p.sort || '<createdAt';
       this.loadPage(Number(p.page) || 1);
     });
   }

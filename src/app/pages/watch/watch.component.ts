@@ -54,7 +54,7 @@ export class WatchComponent implements OnInit {
   }
 
   getMedia(): void {
-    const mediaParams = { exclusions: 'credits,videos,genres,overview' };
+    const mediaParams = { fields: '>credits,videos,genres,overview' };
     this.mediaService.getMediaDetails(this.mediaId, mediaParams).subscribe(data => {
       this.media = data;
       if (data.tvShow) {

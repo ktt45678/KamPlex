@@ -7,7 +7,7 @@
     <div class="page__content">
       <h3 class="fw-bold">Movies & TV Shows</h3>
       <app-media-filter [selectedGenre]="selectedGenre" [selectedSort]="selectedSort" [selectedView]="selectedView" (newViewMode)="selectedView = $event"></app-media-filter>
-      <app-media-list [mediaList]="mediaList" [itemLimit]="itemLimit" [viewMode]="selectedView || 0" [loading]="pageLoading"></app-media-list>
+      <app-media-list [mediaList]="mediaList" [itemLimit]="itemLimit" [viewMode]="selectedView" [loading]="pageLoading"></app-media-list>
       <p-paginator class="d-flex justify-content-center" [first]="pageFirst" [rows]="itemLimit" [totalRecords]="mediaList.totalResults" (onPageChange)="paginate($event)"></p-paginator>
     </div>
   </div>

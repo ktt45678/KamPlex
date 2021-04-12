@@ -5,6 +5,18 @@
       font-size: 0.875rem;
     }
   }
+  .p-button {
+    background-color: #1e1e1e;
+    border-color: rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 0.25rem;
+    font-size: 0.875rem;
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.6) !important;
+    }
+    &:focus {
+      box-shadow: inset 0 0 0 1px #9FA8DA, inset 0 0 0 1px #9FA8DA, inset 0 0 0 1px #9FA8DA, inset 0 0 0 1px #9FA8DA;
+    }
+  }
   .p-dropdown-items-wrapper {
     &::-webkit-scrollbar {
       width: 5px;
